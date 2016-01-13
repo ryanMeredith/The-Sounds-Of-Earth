@@ -1,0 +1,19 @@
+[
+  {
+      "levelNumber":"1",
+      "pictureOne":"train.png",
+      "pictureTwo":"cafe.png",
+      "pictureThree":"welding.png",
+      "sound":"sound/Train.mp3",
+      "correctAnswer":"train.png"
+  },
+  {
+    "levelNumber":"2",
+    "pictureOne":"train.png",
+    "pictureTwo":"cafe.png",
+    "pictureThree":"welding.png",
+    "sound":"train.mp3",
+    "correctAnswer":"cafe.png"
+  }
+]
+

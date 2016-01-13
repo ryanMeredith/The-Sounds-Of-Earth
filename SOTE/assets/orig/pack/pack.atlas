@@ -1,118 +1,139 @@
 
 pack.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 a
   rotate: false
-  xy: 182, 184
+  xy: 182, 79
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
 atrans
   rotate: false
-  xy: 2, 67
+  xy: 608, 439
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
 blue
   rotate: false
-  xy: 428, 376
+  xy: 428, 253
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
 bluetrans
   rotate: false
-  xy: 428, 442
+  xy: 428, 319
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
+cafe
+  rotate: false
+  xy: 182, 145
+  size: 178, 100
+  orig: 178, 100
+  offset: 0, 0
+  index: -1
 d
   rotate: false
-  xy: 182, 118
+  xy: 743, 439
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
 dtrans
   rotate: false
-  xy: 317, 184
+  xy: 362, 181
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
 frame
   rotate: false
-  xy: 2, 133
+  xy: 2, 2
   size: 178, 115
   orig: 178, 115
   offset: 0, 0
   index: -1
 green
   rotate: false
-  xy: 70, 68
+  xy: 676, 440
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
   index: -1
 greentrans
   rotate: false
-  xy: 2, 2
+  xy: 496, 320
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
   index: -1
 labelessdisc
   rotate: false
-  xy: 2, 250
+  xy: 2, 247
   size: 424, 256
   orig: 424, 256
   offset: 0, 0
   index: -1
 red
   rotate: false
-  xy: 428, 245
+  xy: 496, 254
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
 redtrans
   rotate: false
-  xy: 425, 179
+  xy: 807, 439
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
 s
   rotate: false
-  xy: 250, 185
+  xy: 182, 14
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
   index: -1
 star1
   rotate: false
-  xy: 70, 26
+  xy: 608, 397
   size: 52, 40
   orig: 52, 40
   offset: 0, 0
   index: -1
 star2
   rotate: false
-  xy: 381, 202
+  xy: 563, 337
   size: 42, 46
   orig: 42, 46
   offset: 0, 0
   index: -1
 strans
   rotate: false
-  xy: 428, 311
+  xy: 250, 80
   size: 65, 63
   orig: 65, 63
+  offset: 0, 0
+  index: -1
+train
+  rotate: false
+  xy: 2, 119
+  size: 178, 126
+  orig: 178, 126
+  offset: 0, 0
+  index: -1
+welding
+  rotate: false
+  xy: 428, 385
+  size: 178, 118
+  orig: 178, 118
   offset: 0, 0
   index: -1
