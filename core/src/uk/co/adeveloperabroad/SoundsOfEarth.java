@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,21 +13,17 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
-import com.uwsoft.editor.renderer.components.additional.ButtonComponent;
-import com.uwsoft.editor.renderer.systems.ButtonSystem;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 import java.util.Comparator;
 
-import uk.co.adeveloperabroad.Components.PictureComponent;
-
+import uk.co.adeveloperabroad.components.PictureComponent;
+import uk.co.adeveloperabroad.systems.PictureSystem;
 
 public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor {
 
@@ -72,12 +67,9 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
         sceneLoader.loadScene("MainScene", viewport);
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
 
-        sceneLoader.addComponentsByTagName("button", ButtonComponent.class);
         sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
-       // sceneLoader.getEngine().addSystem(new ButtonSystem());
+        ComponentRetriever.addMapper(PictureComponent.class);
         sceneLoader.getEngine().addSystem(new PictureSystem());
-
-
 
         blueSqaure = getCompositeLayers("blue", 0, root);
         greenSqaure = getCompositeLayers("green", 0, root);
@@ -86,18 +78,15 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
         greenSqaure.visible = false;
         pinkSqaure.visible = false;
 
-
-
         Gdx.input.setInputProcessor(this);
 
         Json json =  new Json();
         Array<Level> levels = json.fromJson(Array.class, Level.class, Gdx.files.internal("levels/levelResources"));
-        levelManager = new LevelManager(levels);
+        levelManager = new LevelManager(levels, root);
 
         mysterySound = levelManager.mysterySound;
         soundId = mysterySound.loop();
         mysterySound.pause(soundId);
-
 
         TextureAtlas labelAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/label/label.atlas"));
         labelAtlasRegions = new Array<TextureAtlas.AtlasRegion>(labelAtlas.getRegions());
@@ -109,7 +98,6 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
         alienAtlasRegions.sort(new RegionComparator());
         alienAnimation = new Animation(ALIEN_FPS, alienAtlasRegions, Animation.PlayMode.LOOP);
     }
-
 
 
 	@Override

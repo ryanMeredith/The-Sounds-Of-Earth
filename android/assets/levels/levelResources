@@ -1,19 +1,19 @@
 [
   {
       "levelNumber":"1",
-      "pictureOne":"train.png",
-      "pictureTwo":"cafe.png",
-      "pictureThree":"welding.png",
+      "pictureOne":"train",
+      "pictureTwo":"cafe",
+      "pictureThree":"welding",
       "sound":"sound/Train.mp3",
-      "correctAnswer":"train.png"
+      "correctAnswer":"pictureOne"
   },
   {
     "levelNumber":"2",
-    "pictureOne":"train.png",
-    "pictureTwo":"cafe.png",
-    "pictureThree":"welding.png",
+    "pictureOne":"train",
+    "pictureTwo":"cafe",
+    "pictureThree":"welding",
     "sound":"train.mp3",
-    "correctAnswer":"cafe.png"
+    "correctAnswer":"pictureThree"
   }
 ]
 
