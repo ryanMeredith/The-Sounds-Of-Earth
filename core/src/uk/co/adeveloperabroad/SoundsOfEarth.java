@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
-import com.uwsoft.editor.renderer.components.NodeComponent;
+import com.uwsoft.editor.renderer.components.label.LabelComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 import java.util.Comparator;
@@ -57,13 +57,10 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
 
     private SpriteBatch batch;
 
-    private MainItemComponent blueSqaure;
-    private MainItemComponent greenSqaure;
-    private MainItemComponent pinkSqaure;
-
     private PictureSystem pictureSystem = new PictureSystem();
     private WalkBoxSystem walkBoxSystem = new WalkBoxSystem();
     private boolean hasGuessed = false;
+    private int score = 0;
 
 
     @Override
@@ -75,6 +72,12 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
         sceneLoader.loadScene("MainScene", viewport);
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
 
+        Entity scoreEntitiy = root.getChild("score").getEntity();
+
+ 
+        LabelComponent labelComponent = ComponentRetriever.get(scoreEntitiy, LabelComponent.class);
+        labelComponent.setText("hello");
+
         ComponentRetriever.addMapper(PictureComponent.class);
         ComponentRetriever.addMapper(WalkBoxComponent.class);
 
@@ -82,9 +85,6 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
         sceneLoader.getEngine().addSystem(walkBoxSystem);
         sceneLoader.getEngine().addSystem(pictureSystem);
 
-        blueSqaure = getCompositeLayers("blue", 0, root);
-        greenSqaure = getCompositeLayers("green", 0, root);
-        pinkSqaure = getCompositeLayers("pink", 0, root);
 
         addMessageListeners();
 
@@ -156,46 +156,24 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
     private void moveLeg(int leg) {
 
         if (!hasGuessed) {
-
             if (leg == 1) {
                 nextLeg = 2;
-                blueSqaure.visible = false;
-                greenSqaure.visible = true;
-                pinkSqaure.visible = false;
             }
 
             if (leg == 2) {
                 nextLeg = 3;
-                blueSqaure.visible = false;
-                greenSqaure.visible = false;
-                pinkSqaure.visible = true;
             }
 
             if (leg == 3) {
                 nextLeg = 1;
                 recordSpeed += LEG_IMPULSE_SPEED;
-                blueSqaure.visible = true;
-                greenSqaure.visible = false;
-                pinkSqaure.visible = false;
             }
             animationTimeAlien = ALIEN_FPS * ALIEN_FRAMES_PER_LEG * (leg - 1);
         }
 
     }
 
-
-    protected MainItemComponent getCompositeLayers(String identifier, Integer depth, ItemWrapper root) {
-        Entity entity = root.getChild(identifier).getEntity();
-        NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
-        Entity childEntity = nodeComponent.children.get(depth);
-        return ComponentRetriever.get(childEntity, MainItemComponent.class);
-    }
-
     protected void startPositions() {
-
-        greenSqaure.visible = false;
-        pinkSqaure.visible = false;
-        blueSqaure.visible = true;
         animationTimeAlien = 0;
         animationTimeLabel = 0;
         recordSpeed = 0;
@@ -212,10 +190,15 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
     @Override
     public boolean handleMessage(Telegram msg) {
 
-        System.out.println(msg);
-        if (msg.message == MessageType.win || msg.message == MessageType.lose) {
+        if (msg.message == MessageType.win) {
+            score ++;
            guessed();
         }
+
+        if (msg.message == MessageType.lose) {
+            guessed();
+        }
+
 
         if (msg.message == MessageType.leg1) {
             moveLeg(1);
