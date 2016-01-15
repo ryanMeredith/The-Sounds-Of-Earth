@@ -1,10 +1,10 @@
 package uk.co.adeveloperabroad;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -26,12 +26,14 @@ import com.uwsoft.editor.renderer.utils.ItemWrapper;
 import java.util.Comparator;
 
 import uk.co.adeveloperabroad.components.PictureComponent;
+import uk.co.adeveloperabroad.components.WalkBoxComponent;
 import uk.co.adeveloperabroad.systems.PictureSystem;
+import uk.co.adeveloperabroad.systems.WalkBoxSystem;
 
-public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor, Telegraph {
+public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
 
     private Viewport viewport;
-	private SceneLoader sceneLoader;
+    private SceneLoader sceneLoader;
 
     private LevelManager levelManager;
 
@@ -55,38 +57,38 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
 
     private SpriteBatch batch;
 
-    private  MainItemComponent blueSqaure;
-    private  MainItemComponent greenSqaure;
-    private  MainItemComponent pinkSqaure;
+    private MainItemComponent blueSqaure;
+    private MainItemComponent greenSqaure;
+    private MainItemComponent pinkSqaure;
 
     private PictureSystem pictureSystem = new PictureSystem();
+    private WalkBoxSystem walkBoxSystem = new WalkBoxSystem();
     private boolean hasGuessed = false;
 
 
-	@Override
-	public void create () {
+    @Override
+    public void create() {
 
         batch = new SpriteBatch();
-		viewport = new FitViewport(160, 96);
-		sceneLoader = new SceneLoader();
+        viewport = new FitViewport(160, 96);
+        sceneLoader = new SceneLoader();
         sceneLoader.loadScene("MainScene", viewport);
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
 
-        sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
         ComponentRetriever.addMapper(PictureComponent.class);
+        ComponentRetriever.addMapper(WalkBoxComponent.class);
 
+        sceneLoader.addComponentsByTagName("input", WalkBoxComponent.class);
+        sceneLoader.getEngine().addSystem(walkBoxSystem);
         sceneLoader.getEngine().addSystem(pictureSystem);
 
         blueSqaure = getCompositeLayers("blue", 0, root);
         greenSqaure = getCompositeLayers("green", 0, root);
         pinkSqaure = getCompositeLayers("pink", 0, root);
 
-        MessageManager.getInstance().addListener(this, MessageType.win);
-        MessageManager.getInstance().addListener(this, MessageType.lose);
+        addMessageListeners();
 
-        Gdx.input.setInputProcessor(this);
-
-        Json json =  new Json();
+        Json json = new Json();
         Array<Level> levels = json.fromJson(Array.class, Level.class, Gdx.files.internal("levels/levelResources"));
         levelManager = new LevelManager(levels, root);
 
@@ -103,23 +105,25 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
         playLevel(1);
     }
 
+
+
     protected void playLevel(int levelNumber) {
+        sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
         levelManager.loadLevel(levelNumber);
         loadMysterySound();
         startPositions();
     }
 
-
-	@Override
-	public void render() {
+    @Override
+    public void render() {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sceneLoader.getEngine().update(Gdx.graphics.getDeltaTime());
 
-        recordSpeed -= Gdx.graphics.getDeltaTime()  * RECORD_DRAGSPEED;
-        recordSpeed = MathUtils.clamp(recordSpeed,0, 10);
+        recordSpeed -= Gdx.graphics.getDeltaTime() * RECORD_DRAGSPEED;
+        recordSpeed = MathUtils.clamp(recordSpeed, 0, 10);
 
-        if(recordSpeed == 0) {
+        if (recordSpeed == 0) {
             mysterySound.pause(soundId);
         } else {
             playSound(recordSpeed);
@@ -136,7 +140,7 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
         batch.draw(alienAnimation.getKeyFrame(animationTimeAlien), 100.0f, 195.0f);
         batch.end();
 
-	}
+    }
 
     @Override
     public void dispose() {
@@ -160,7 +164,7 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
                 pinkSqaure.visible = false;
             }
 
-            if (leg == 2){
+            if (leg == 2) {
                 nextLeg = 3;
                 blueSqaure.visible = false;
                 greenSqaure.visible = false;
@@ -179,33 +183,6 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
 
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.A) {
-            if(nextLeg == 1) {
-                moveLeg(1);
-                Gdx.app.log("Leg", "A");
-            }
-        }
-
-        if (keycode == Input.Keys.S) {
-            if(nextLeg == 2) {
-
-                moveLeg(2);
-                Gdx.app.log("Leg", "B");
-            }
-        }
-
-        if (keycode == Input.Keys.D) {
-            if(nextLeg == 3) {
-                moveLeg(3);
-                Gdx.app.log("Leg", "C");
-            }
-        }
-        return true;
-    }
-
-
 
     protected MainItemComponent getCompositeLayers(String identifier, Integer depth, ItemWrapper root) {
         Entity entity = root.getChild(identifier).getEntity();
@@ -222,8 +199,8 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
         animationTimeAlien = 0;
         animationTimeLabel = 0;
         recordSpeed = 0;
-
-       // hasGuessed = false;
+        sceneLoader.getEngine().getSystem(WalkBoxSystem.class).nextLeg = 1;
+        hasGuessed = false;
     }
 
     protected void loadMysterySound() {
@@ -235,17 +212,48 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
     @Override
     public boolean handleMessage(Telegram msg) {
 
-        hasGuessed = true;
-
-        if (msg.message == MessageType.win) {
-            System.out.println("win");
-        } else {
-            System.out.println("lose");
+        System.out.println(msg);
+        if (msg.message == MessageType.win || msg.message == MessageType.lose) {
+           guessed();
         }
 
-        playLevel(levelManager.currentLevel.levelNumber + 1);
+        if (msg.message == MessageType.leg1) {
+            moveLeg(1);
+        }
 
+        if (msg.message == MessageType.leg2) {
+            moveLeg(2);
+        }
+        if (msg.message == MessageType.leg3) {
+            moveLeg(3);
+        }
         return true;
+    }
+
+    public void guessed() {
+
+        hasGuessed = true;
+
+        ImmutableArray<Entity> pictureEntities =
+                sceneLoader.getEngine().getEntitiesFor(Family.all(PictureComponent.class).get());
+        for (Entity pictureEntity : pictureEntities) {
+            pictureEntity.remove(PictureComponent.class);
+        }
+
+        if (levelManager.finalLevelNumber >= levelManager.currentLevel.levelNumber + 1) {
+            playLevel(levelManager.currentLevel.levelNumber + 1);
+        } else {
+            System.out.println("game over");
+        }
+    }
+
+
+    private void addMessageListeners() {
+        MessageManager.getInstance().addListener(this, MessageType.leg1);
+        MessageManager.getInstance().addListener(this, MessageType.leg2);
+        MessageManager.getInstance().addListener(this, MessageType.leg3);
+        MessageManager.getInstance().addListener(this, MessageType.win);
+        MessageManager.getInstance().addListener(this, MessageType.lose);
     }
 
 
@@ -255,46 +263,6 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor,
             return region1.name.compareTo(region2.name);
         }
     }
-
-
-
-
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-
-
 }
+
 

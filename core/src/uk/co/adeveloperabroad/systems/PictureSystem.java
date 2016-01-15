@@ -1,9 +1,9 @@
 package uk.co.adeveloperabroad.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -30,38 +30,34 @@ public class PictureSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
+
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
        PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
 
         if(nodeComponent == null) return;
 
         for (int i = 0; i < nodeComponent.children.size; i++) {
-//            System.out.println(pictureComponent.hasGuessed);
-
 
                 Entity childEntity = nodeComponent.children.get(i);
                 MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
                 ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
+
                 if(isTouched(entity)) {
 
                     if(childZComponent.layerName.equals("right")
                             && pictureComponent.isCorrectAnswer) {
-                        MessageManager.getInstance().dispatchMessage(0.0f, pictureComponent, MessageType.win);
+                        MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.win);
                         childMainItemComponent.visible = true;
-                        pictureComponent.hasGuessed = true;
                     }
 
                     if(childZComponent.layerName.equals("wrong")
                             && !pictureComponent.isCorrectAnswer) {
-                        MessageManager.getInstance().dispatchMessage(0.0f, pictureComponent, MessageType.lose);
+                        MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.lose);
                         childMainItemComponent.visible = true;
-                        pictureComponent.hasGuessed = true;
                     }
 
                 } else {
-                    if(childZComponent.layerName.equals("normal")) {
-                        childMainItemComponent.visible = true;
-                    }
+
                     if(childZComponent.layerName.equals("wrong")) {
                         childMainItemComponent.visible = false;
                     }
@@ -76,19 +72,16 @@ public class PictureSystem extends IteratingSystem {
     }
 
     private boolean isTouched(Entity entity) {
-        PictureComponent pictureComponent = entity.getComponent(PictureComponent.class);
-        if(Gdx.input.isTouched() && !pictureComponent.hasGuessed) {
+
+        if(Gdx.input.justTouched()) {
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
             Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
             TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
 
             if(dimensionsComponent.hit(localCoordinates.x, localCoordinates.y)) {
-                pictureComponent.setTouchState(true);
                 return true;
             }
         }
-        pictureComponent.setTouchState(false);
         return false;
     }
 

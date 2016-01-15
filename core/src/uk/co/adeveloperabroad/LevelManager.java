@@ -19,9 +19,20 @@ public class LevelManager {
     public Level currentLevel;
     public Sound mysterySound;
 
+    public int finalLevelNumber;
+
     public LevelManager(Array levels, ItemWrapper root) {
         this.levels = levels;
         this.root = root;
+        setFinalLevelNumber();
+    }
+
+    private void setFinalLevelNumber() {
+        for (Level level : levels) {
+            if (level.levelNumber > finalLevelNumber) {
+                finalLevelNumber = level.levelNumber;
+            }
+        }
     }
 
     public void loadLevel(int levelNumber) {
@@ -31,7 +42,6 @@ public class LevelManager {
                 currentLevel = level;
             }
         }
-        System.out.println(currentLevel.levelNumber);
         loadSound();
         loadPictures();
     }
@@ -44,9 +54,8 @@ public class LevelManager {
         mysterySound = Gdx.audio.newSound(Gdx.files.internal(currentLevel.sound));
     }
 
-
-
     public void loadPictures() {
+
         loadPicture("pictureOne", currentLevel.pictureOne, currentLevel.correctAnswer);
         loadPicture("pictureTwo", currentLevel.pictureTwo,  currentLevel.correctAnswer);
         loadPicture("pictureThree", currentLevel.pictureThree, currentLevel.correctAnswer);
@@ -63,7 +72,6 @@ public class LevelManager {
 
         PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
         pictureComponent.isCorrectAnswer = pictureIdentifier.equals(correctAnswer);
-        pictureComponent.hasGuessed = false;
     }
 
 }
