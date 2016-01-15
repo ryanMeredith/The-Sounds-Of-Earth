@@ -1,15 +1,33 @@
 package uk.co.adeveloperabroad.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.utils.Array;
 
-public class PictureComponent implements Component {
+import uk.co.adeveloperabroad.MessageType;
+import uk.co.adeveloperabroad.SoundsOfEarth;
+
+public class PictureComponent implements Component, Telegraph {
 
     public boolean isCorrectAnswer = false;
-
     public boolean isTouched = false;
-
+    public boolean hasGuessed = false;
     private Array<PictureListener> listeners = new Array<PictureListener>();
+
+    public PictureComponent() {
+        MessageManager.getInstance().addListener(this, MessageType.win);
+        MessageManager.getInstance().addListener(this, MessageType.lose);
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+       hasGuessed = true;
+        System.out.println("message handled");
+        return true;
+    }
 
     public interface PictureListener {
         public void touchUp();

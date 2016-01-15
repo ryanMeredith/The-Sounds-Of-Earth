@@ -9,10 +9,10 @@
   },
   {
     "levelNumber":"2",
-    "pictureOne":"train",
-    "pictureTwo":"cafe",
-    "pictureThree":"welding",
-    "sound":"train.mp3",
+    "pictureOne":"cafe",
+    "pictureTwo":"welding",
+    "pictureThree":"train",
+    "sound":"sound/Train.mp3",
     "correctAnswer":"pictureThree"
   }
 ]

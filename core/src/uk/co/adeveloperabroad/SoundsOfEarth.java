@@ -5,6 +5,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -25,7 +28,7 @@ import java.util.Comparator;
 import uk.co.adeveloperabroad.components.PictureComponent;
 import uk.co.adeveloperabroad.systems.PictureSystem;
 
-public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor {
+public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor, Telegraph {
 
     private Viewport viewport;
 	private SceneLoader sceneLoader;
@@ -56,6 +59,8 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
     private  MainItemComponent greenSqaure;
     private  MainItemComponent pinkSqaure;
 
+    private PictureSystem pictureSystem = new PictureSystem();
+    private boolean hasGuessed = false;
 
 
 	@Override
@@ -69,24 +74,21 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
 
         sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
         ComponentRetriever.addMapper(PictureComponent.class);
-        sceneLoader.getEngine().addSystem(new PictureSystem());
+
+        sceneLoader.getEngine().addSystem(pictureSystem);
 
         blueSqaure = getCompositeLayers("blue", 0, root);
         greenSqaure = getCompositeLayers("green", 0, root);
         pinkSqaure = getCompositeLayers("pink", 0, root);
 
-        greenSqaure.visible = false;
-        pinkSqaure.visible = false;
+        MessageManager.getInstance().addListener(this, MessageType.win);
+        MessageManager.getInstance().addListener(this, MessageType.lose);
 
         Gdx.input.setInputProcessor(this);
 
         Json json =  new Json();
         Array<Level> levels = json.fromJson(Array.class, Level.class, Gdx.files.internal("levels/levelResources"));
         levelManager = new LevelManager(levels, root);
-
-        mysterySound = levelManager.mysterySound;
-        soundId = mysterySound.loop();
-        mysterySound.pause(soundId);
 
         TextureAtlas labelAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/label/label.atlas"));
         labelAtlasRegions = new Array<TextureAtlas.AtlasRegion>(labelAtlas.getRegions());
@@ -97,6 +99,14 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
         alienAtlasRegions = new Array<TextureAtlas.AtlasRegion>(alienAtlas.getRegions());
         alienAtlasRegions.sort(new RegionComparator());
         alienAnimation = new Animation(ALIEN_FPS, alienAtlasRegions, Animation.PlayMode.LOOP);
+
+        playLevel(1);
+    }
+
+    protected void playLevel(int levelNumber) {
+        levelManager.loadLevel(levelNumber);
+        loadMysterySound();
+        startPositions();
     }
 
 
@@ -141,32 +151,38 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
 
     private void moveLeg(int leg) {
 
-        if (leg == 1) {
-            blueSqaure.visible = false;
-            greenSqaure.visible = true;
-            pinkSqaure.visible = false;
+        if (!hasGuessed) {
+
+            if (leg == 1) {
+                nextLeg = 2;
+                blueSqaure.visible = false;
+                greenSqaure.visible = true;
+                pinkSqaure.visible = false;
+            }
+
+            if (leg == 2){
+                nextLeg = 3;
+                blueSqaure.visible = false;
+                greenSqaure.visible = false;
+                pinkSqaure.visible = true;
+            }
+
+            if (leg == 3) {
+                nextLeg = 1;
+                recordSpeed += LEG_IMPULSE_SPEED;
+                blueSqaure.visible = true;
+                greenSqaure.visible = false;
+                pinkSqaure.visible = false;
+            }
+            animationTimeAlien = ALIEN_FPS * ALIEN_FRAMES_PER_LEG * (leg - 1);
         }
 
-        if (leg == 2){
-            blueSqaure.visible = false;
-            greenSqaure.visible = false;
-            pinkSqaure.visible = true;
-        }
-
-        if (leg == 3) {
-            recordSpeed += LEG_IMPULSE_SPEED;
-            blueSqaure.visible = true;
-            greenSqaure.visible = false;
-            pinkSqaure.visible = false;
-        }
-        animationTimeAlien = ALIEN_FPS * ALIEN_FRAMES_PER_LEG * (leg - 1);
     }
 
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.A) {
             if(nextLeg == 1) {
-                nextLeg = 2;
                 moveLeg(1);
                 Gdx.app.log("Leg", "A");
             }
@@ -174,7 +190,7 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
 
         if (keycode == Input.Keys.S) {
             if(nextLeg == 2) {
-                nextLeg = 3;
+
                 moveLeg(2);
                 Gdx.app.log("Leg", "B");
             }
@@ -182,13 +198,67 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
 
         if (keycode == Input.Keys.D) {
             if(nextLeg == 3) {
-                nextLeg = 1;
                 moveLeg(3);
                 Gdx.app.log("Leg", "C");
             }
         }
         return true;
     }
+
+
+
+    protected MainItemComponent getCompositeLayers(String identifier, Integer depth, ItemWrapper root) {
+        Entity entity = root.getChild(identifier).getEntity();
+        NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
+        Entity childEntity = nodeComponent.children.get(depth);
+        return ComponentRetriever.get(childEntity, MainItemComponent.class);
+    }
+
+    protected void startPositions() {
+
+        greenSqaure.visible = false;
+        pinkSqaure.visible = false;
+        blueSqaure.visible = true;
+        animationTimeAlien = 0;
+        animationTimeLabel = 0;
+        recordSpeed = 0;
+
+       // hasGuessed = false;
+    }
+
+    protected void loadMysterySound() {
+        mysterySound = levelManager.mysterySound;
+        soundId = mysterySound.loop();
+        mysterySound.pause(soundId);
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+
+        hasGuessed = true;
+
+        if (msg.message == MessageType.win) {
+            System.out.println("win");
+        } else {
+            System.out.println("lose");
+        }
+
+        playLevel(levelManager.currentLevel.levelNumber + 1);
+
+        return true;
+    }
+
+
+    private static class RegionComparator implements Comparator<TextureAtlas.AtlasRegion> {
+        @Override
+        public int compare(TextureAtlas.AtlasRegion region1, TextureAtlas.AtlasRegion region2) {
+            return region1.name.compareTo(region2.name);
+        }
+    }
+
+
+
+
 
     @Override
     public boolean keyUp(int keycode) {
@@ -225,18 +295,6 @@ public class SoundsOfEarth extends ApplicationAdapter implements InputProcessor 
         return false;
     }
 
-    protected MainItemComponent getCompositeLayers(String identifier, Integer depth, ItemWrapper root) {
-        Entity entity = root.getChild(identifier).getEntity();
-        NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
-        Entity childEntity = nodeComponent.children.get(depth);
-        return ComponentRetriever.get(childEntity, MainItemComponent.class);
-    }
 
-    private static class RegionComparator implements Comparator<TextureAtlas.AtlasRegion> {
-        @Override
-        public int compare(TextureAtlas.AtlasRegion region1, TextureAtlas.AtlasRegion region2) {
-            return region1.name.compareTo(region2.name);
-        }
-    }
 }
 

@@ -22,7 +22,6 @@ public class LevelManager {
     public LevelManager(Array levels, ItemWrapper root) {
         this.levels = levels;
         this.root = root;
-        loadLevel(1);
     }
 
     public void loadLevel(int levelNumber) {
@@ -32,15 +31,20 @@ public class LevelManager {
                 currentLevel = level;
             }
         }
-
+        System.out.println(currentLevel.levelNumber);
         loadSound();
         loadPictures();
-
     }
 
     public void loadSound() {
+        if (mysterySound != null) {
+            mysterySound.dispose();
+        }
+
         mysterySound = Gdx.audio.newSound(Gdx.files.internal(currentLevel.sound));
     }
+
+
 
     public void loadPictures() {
         loadPicture("pictureOne", currentLevel.pictureOne, currentLevel.correctAnswer);
@@ -59,13 +63,8 @@ public class LevelManager {
 
         PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
         pictureComponent.isCorrectAnswer = pictureIdentifier.equals(correctAnswer);
+        pictureComponent.hasGuessed = false;
     }
-
-
-
-
-
-
 
 }
 

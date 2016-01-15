@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.ai.msg.MessageManager;
+
 import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
@@ -14,13 +16,16 @@ import com.uwsoft.editor.renderer.components.ZIndexComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.TransformMathUtils;
 
+import uk.co.adeveloperabroad.MessageType;
 import uk.co.adeveloperabroad.components.PictureComponent;
 
 // borrowing heavily from buttonComponent (thanks azakhary)
 public class PictureSystem extends IteratingSystem {
 
+
     public PictureSystem() {
         super(Family.all(PictureComponent.class).get());
+
     }
 
     @Override
@@ -31,41 +36,48 @@ public class PictureSystem extends IteratingSystem {
         if(nodeComponent == null) return;
 
         for (int i = 0; i < nodeComponent.children.size; i++) {
-            Entity childEntity = nodeComponent.children.get(i);
-            MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
-            ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
-            if(isTouched(entity)) {
-                if(childZComponent.layerName.equals("normal")) {
-                    childMainItemComponent.visible = false;
-                }
-
-                if(childZComponent.layerName.equals("right") && pictureComponent.isCorrectAnswer) {
-                    childMainItemComponent.visible = true;
-                }
-
-                if(childZComponent.layerName.equals("wrong") && !pictureComponent.isCorrectAnswer) {
-                    childMainItemComponent.visible = true;
-                }
+//            System.out.println(pictureComponent.hasGuessed);
 
 
-            } else {
-                if(childZComponent.layerName.equals("normal")) {
-                    childMainItemComponent.visible = true;
+                Entity childEntity = nodeComponent.children.get(i);
+                MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
+                ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
+                if(isTouched(entity)) {
+
+                    if(childZComponent.layerName.equals("right")
+                            && pictureComponent.isCorrectAnswer) {
+                        MessageManager.getInstance().dispatchMessage(0.0f, pictureComponent, MessageType.win);
+                        childMainItemComponent.visible = true;
+                        pictureComponent.hasGuessed = true;
+                    }
+
+                    if(childZComponent.layerName.equals("wrong")
+                            && !pictureComponent.isCorrectAnswer) {
+                        MessageManager.getInstance().dispatchMessage(0.0f, pictureComponent, MessageType.lose);
+                        childMainItemComponent.visible = true;
+                        pictureComponent.hasGuessed = true;
+                    }
+
+                } else {
+                    if(childZComponent.layerName.equals("normal")) {
+                        childMainItemComponent.visible = true;
+                    }
+                    if(childZComponent.layerName.equals("wrong")) {
+                        childMainItemComponent.visible = false;
+                    }
+                    if(childZComponent.layerName.equals("right")) {
+                        childMainItemComponent.visible = false;
+                    }
                 }
-                if(childZComponent.layerName.equals("wrong")) {
-                    childMainItemComponent.visible = false;
-                }
-                if(childZComponent.layerName.equals("right")) {
-                    childMainItemComponent.visible = false;
-                }
-            }
+
         }
+
 
     }
 
     private boolean isTouched(Entity entity) {
         PictureComponent pictureComponent = entity.getComponent(PictureComponent.class);
-        if(Gdx.input.isTouched()) {
+        if(Gdx.input.isTouched() && !pictureComponent.hasGuessed) {
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
             Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
