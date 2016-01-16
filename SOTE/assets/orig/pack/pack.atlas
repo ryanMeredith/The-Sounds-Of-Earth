@@ -4,30 +4,37 @@ size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+The-Sounds-Of-Earth
+  rotate: false
+  xy: 428, 354
+  size: 152, 29
+  orig: 152, 29
+  offset: 0, 0
+  index: -1
 a
   rotate: false
-  xy: 182, 79
+  xy: 428, 288
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
 atrans
   rotate: false
-  xy: 608, 439
+  xy: 182, 79
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
 blue
   rotate: false
-  xy: 428, 253
+  xy: 676, 439
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
   index: -1
 bluetrans
   rotate: false
-  xy: 428, 319
+  xy: 608, 439
   size: 66, 64
   orig: 66, 64
   offset: 0, 0
@@ -41,7 +48,7 @@ cafe
   index: -1
 d
   rotate: false
-  xy: 743, 439
+  xy: 875, 439
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
@@ -62,14 +69,14 @@ frame
   index: -1
 green
   rotate: false
-  xy: 676, 440
+  xy: 250, 80
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
   index: -1
 greentrans
   rotate: false
-  xy: 496, 320
+  xy: 182, 14
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
@@ -83,21 +90,21 @@ labelessdisc
   index: -1
 red
   rotate: false
-  xy: 496, 254
+  xy: 811, 439
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
 redtrans
   rotate: false
-  xy: 807, 439
+  xy: 939, 439
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
 s
   rotate: false
-  xy: 182, 14
+  xy: 496, 289
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
@@ -111,14 +118,14 @@ star1
   index: -1
 star2
   rotate: false
-  xy: 563, 337
+  xy: 317, 97
   size: 42, 46
   orig: 42, 46
   offset: 0, 0
   index: -1
 strans
   rotate: false
-  xy: 250, 80
+  xy: 744, 440
   size: 65, 63
   orig: 65, 63
   offset: 0, 0

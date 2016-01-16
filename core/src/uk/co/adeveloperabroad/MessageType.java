@@ -9,4 +9,6 @@ public class MessageType {
     public static final int leg3 = 3;
     public static final int win = 4;
     public static final int lose = 5;
+    public static final int timeout = 6;
+    public static final int startingPositions = 7;
 }

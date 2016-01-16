@@ -19,13 +19,13 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.label.LabelComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 import java.util.Comparator;
 
 import uk.co.adeveloperabroad.components.PictureComponent;
+import uk.co.adeveloperabroad.components.RecordSpeedComponent;
 import uk.co.adeveloperabroad.components.WalkBoxComponent;
 import uk.co.adeveloperabroad.systems.PictureSystem;
 import uk.co.adeveloperabroad.systems.WalkBoxSystem;
@@ -37,9 +37,17 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
 
     private LevelManager levelManager;
 
+
+    private BinaryDisplay binaryDisplay = new BinaryDisplay();
+    private LabelComponent scoreLabel;
+    private LabelComponent trackLabel;
+    private int score = 0;
+
     private float recordSpeed;
     private static float RECORD_DRAGSPEED = 0.8f;
     private static float LEG_IMPULSE_SPEED = 0.5f;
+    private Entity stylus;
+
     private Sound mysterySound;
     private Long soundId;
 
@@ -59,9 +67,7 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
 
     private PictureSystem pictureSystem = new PictureSystem();
     private WalkBoxSystem walkBoxSystem = new WalkBoxSystem();
-    private boolean hasGuessed = false;
-    private int score = 0;
-
+    private boolean hasTrackFinished = false;
 
     @Override
     public void create() {
@@ -73,17 +79,24 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
 
         Entity scoreEntitiy = root.getChild("score").getEntity();
+        scoreLabel = ComponentRetriever.get(scoreEntitiy, LabelComponent.class);
+        scoreLabel.setText(binaryDisplay.getScore(score));
 
- 
-        LabelComponent labelComponent = ComponentRetriever.get(scoreEntitiy, LabelComponent.class);
-        labelComponent.setText("hello");
+        Entity trackEntitiy = root.getChild("track").getEntity();
+        trackLabel = ComponentRetriever.get(trackEntitiy, LabelComponent.class);
 
         ComponentRetriever.addMapper(PictureComponent.class);
         ComponentRetriever.addMapper(WalkBoxComponent.class);
+        ComponentRetriever.addMapper(RecordSpeedComponent.class);
 
         sceneLoader.addComponentsByTagName("input", WalkBoxComponent.class);
         sceneLoader.getEngine().addSystem(walkBoxSystem);
         sceneLoader.getEngine().addSystem(pictureSystem);
+
+        StylusController stylusController = new StylusController();
+
+        stylus = root.getChild("stylus").getEntity().add(new RecordSpeedComponent());
+        root.getChild("stylus").addScript(stylusController);
 
 
         addMessageListeners();
@@ -107,9 +120,11 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
 
 
 
-    protected void playLevel(int levelNumber) {
+    protected void playLevel(int trackNumber) {
+
         sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
-        levelManager.loadLevel(levelNumber);
+        levelManager.loadLevel(trackNumber);
+        trackLabel.setText(binaryDisplay.getTrack(trackNumber, levelManager.finalLevelNumber));
         loadMysterySound();
         startPositions();
     }
@@ -128,6 +143,8 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
         } else {
             playSound(recordSpeed);
         }
+
+        stylus.getComponent(RecordSpeedComponent.class).recordSpeed = recordSpeed;
 
         animationTimeLabel += Gdx.graphics.getDeltaTime() * recordSpeed;
         animationTimeAlien = MathUtils.clamp(
@@ -148,14 +165,14 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
     }
 
     private void playSound(float speed) {
-        Gdx.app.log("pitch", Float.toString(speed * 0.2f));
+      //  Gdx.app.log("pitch", Float.toString(speed * 0.2f));
         mysterySound.setPitch(soundId, speed * 0.2f);
         mysterySound.resume(soundId);
     }
 
     private void moveLeg(int leg) {
 
-        if (!hasGuessed) {
+        if (!hasTrackFinished) {
             if (leg == 1) {
                 nextLeg = 2;
             }
@@ -177,8 +194,8 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
         animationTimeAlien = 0;
         animationTimeLabel = 0;
         recordSpeed = 0;
-        sceneLoader.getEngine().getSystem(WalkBoxSystem.class).nextLeg = 1;
-        hasGuessed = false;
+        MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.startingPositions);
+        hasTrackFinished = false;
     }
 
     protected void loadMysterySound() {
@@ -190,32 +207,38 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
     @Override
     public boolean handleMessage(Telegram msg) {
 
-        if (msg.message == MessageType.win) {
-            score ++;
-           guessed();
+        switch (msg.message) {
+
+            case MessageType.win:
+                score++;
+                scoreLabel.setText(binaryDisplay.getScore(score));
+                guessed();
+                break;
+            case MessageType.lose:
+                guessed();
+                break;
+            case MessageType.leg1:
+                moveLeg(1);
+                break;
+            case MessageType.leg2:
+                moveLeg(2);
+                break;
+            case MessageType.leg3:
+                moveLeg(3);
+                break;
+            case MessageType.timeout:
+                hasTrackFinished = true;
+                break;
+
         }
 
-        if (msg.message == MessageType.lose) {
-            guessed();
-        }
 
-
-        if (msg.message == MessageType.leg1) {
-            moveLeg(1);
-        }
-
-        if (msg.message == MessageType.leg2) {
-            moveLeg(2);
-        }
-        if (msg.message == MessageType.leg3) {
-            moveLeg(3);
-        }
         return true;
     }
 
     public void guessed() {
 
-        hasGuessed = true;
+        hasTrackFinished = true;
 
         ImmutableArray<Entity> pictureEntities =
                 sceneLoader.getEngine().getEntitiesFor(Family.all(PictureComponent.class).get());
@@ -237,6 +260,7 @@ public class SoundsOfEarth extends ApplicationAdapter implements Telegraph {
         MessageManager.getInstance().addListener(this, MessageType.leg3);
         MessageManager.getInstance().addListener(this, MessageType.win);
         MessageManager.getInstance().addListener(this, MessageType.lose);
+        MessageManager.getInstance().addListener(this, MessageType.timeout);
     }
 
 

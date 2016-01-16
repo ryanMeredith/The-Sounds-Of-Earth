@@ -7,6 +7,8 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
@@ -18,12 +20,13 @@ import com.uwsoft.editor.renderer.utils.TransformMathUtils;
 import uk.co.adeveloperabroad.MessageType;
 import uk.co.adeveloperabroad.components.WalkBoxComponent;
 
-public class WalkBoxSystem extends IteratingSystem {
+public class WalkBoxSystem extends IteratingSystem implements Telegraph {
 
     public int nextLeg = 1;
 
     public WalkBoxSystem() {
         super(Family.all(WalkBoxComponent.class).get());
+        MessageManager.getInstance().addListener(this, MessageType.startingPositions);
     }
 
     @Override
@@ -174,5 +177,14 @@ public class WalkBoxSystem extends IteratingSystem {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+
+        if (msg.message == MessageType.startingPositions) {
+            nextLeg = 1;
+        }
+        return true;
     }
 }
