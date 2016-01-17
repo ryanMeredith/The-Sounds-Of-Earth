@@ -127,7 +127,9 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
             }
 
             if(childZComponent.layerName.equals("keyboard")
-                && (Gdx.app.getType() == Application.ApplicationType.Desktop)) {
+//                && (Gdx.app.getType() == Application.ApplicationType.Desktop)
+
+                    ) {
                 childMainItemComponent.visible = true;
             }
 

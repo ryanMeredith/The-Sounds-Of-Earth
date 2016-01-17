@@ -1,4 +1,4 @@
-package uk.co.adeveloperabroad;
+package uk.co.adeveloperabroad.Controllers;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -10,6 +10,7 @@ import com.uwsoft.editor.renderer.components.TintComponent;
 import com.uwsoft.editor.renderer.components.TransformComponent;
 import com.uwsoft.editor.renderer.scripts.IScript;
 
+import uk.co.adeveloperabroad.MessageType;
 import uk.co.adeveloperabroad.components.RecordSpeedComponent;
 
 /**

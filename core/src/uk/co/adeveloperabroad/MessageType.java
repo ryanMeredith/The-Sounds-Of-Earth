@@ -11,4 +11,7 @@ public class MessageType {
     public static final int lose = 5;
     public static final int timeout = 6;
     public static final int startingPositions = 7;
+    public static final int moreSpeed = 8;
+    public static final int gameOver = 9;
+    public static final int restart = 10;
 }

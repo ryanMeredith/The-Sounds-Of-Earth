@@ -42,7 +42,7 @@ public class PictureSystem extends IteratingSystem {
                 MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
                 ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
 
-                if(isTouched(entity)) {
+                if(isTouched(entity) && !pictureComponent.isTouched) {
 
                     if(childZComponent.layerName.equals("right")
                             && pictureComponent.isCorrectAnswer) {
