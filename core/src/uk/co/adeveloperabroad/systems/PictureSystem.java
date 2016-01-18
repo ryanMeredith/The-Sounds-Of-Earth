@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
+import com.uwsoft.editor.renderer.components.ViewPortComponent;
 import com.uwsoft.editor.renderer.components.ZIndexComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.TransformMathUtils;
@@ -35,6 +36,7 @@ public class PictureSystem extends IteratingSystem {
        PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
 
         if(nodeComponent == null) return;
+        
 
         for (int i = 0; i < nodeComponent.children.size; i++) {
 

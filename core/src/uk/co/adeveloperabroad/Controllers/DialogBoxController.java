@@ -43,29 +43,17 @@ public class DialogBoxController implements IScript, Telegraph {
     }
 
     private void hideDialog() {
-        for (int i = 0; i < nodeComponent.children.size; i++) {
-            Entity childEntity = nodeComponent.children.get(i);
-            childEntity.getComponent(TintComponent.class).color = Color.CLEAR;
-        }
-
-        transformComponent.x = 500;
-        transformComponent.y = 500;
+       tintComponent.color = Color.CLEAR;
     }
 
     private void showDialog() {
-        for (int i = 0; i < nodeComponent.children.size; i++) {
-            Entity childEntity = nodeComponent.children.get(i);
-            childEntity.getComponent(TintComponent.class).color = Color.WHITE;
-        }
-
-        transformComponent.x = 60;
-        transformComponent.y = 50;
+        tintComponent.color = Color.WHITE;
     }
 
     @Override
     public void act(float delta) {
 
-        if (isTouched(dialogBox)) {
+        if (isTouched(dialogBox) && tintComponent.color != Color.CLEAR) {
             MessageManager.getInstance().dispatchMessage(this, MessageType.restart);
             hideDialog();
         }
@@ -83,9 +71,7 @@ public class DialogBoxController implements IScript, Telegraph {
         switch (msg.message) {
 
             case MessageType.gameOver:
-                for (int i = 0; i < nodeComponent.children.size; i++) {
                    showDialog();
-                }
                 break;
         }
         return true;

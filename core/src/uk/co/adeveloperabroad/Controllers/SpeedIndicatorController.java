@@ -38,7 +38,7 @@ public class SpeedIndicatorController implements IScript {
     public void act(float delta) {
 
         changeColour();
-        speedLineTransform.x = startingPosition + recordSpeedComponent.recordSpeed * 0.5f;
+        speedLineTransform.x = startingPosition + recordSpeedComponent.recordSpeed * 0.8f;
     }
 
     protected void changeColour() {

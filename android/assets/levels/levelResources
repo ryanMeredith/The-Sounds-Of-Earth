@@ -1,19 +1,76 @@
 [
   {
       "levelNumber":"1",
-      "pictureOne":"train",
-      "pictureTwo":"cafe",
-      "pictureThree":"welding",
-      "sound":"sound/Train.mp3",
-      "correctAnswer":"pictureOne"
+      "pictureOne":"a",
+      "pictureTwo":"aa",
+      "pictureThree":"car",
+      "sound":"sound/Auto.mp3",
+      "correctAnswer":"pictureThree"
   },
   {
     "levelNumber":"2",
-    "pictureOne":"cafe",
-    "pictureTwo":"welding",
-    "pictureThree":"train",
-    "sound":"sound/Train.mp3",
+    "pictureOne":"bb",
+    "pictureTwo":"b",
+    "pictureThree":"ape",
+    "sound":"sound/Chimpanzee.mp3",
     "correctAnswer":"pictureThree"
+  },
+  {
+    "levelNumber":"3",
+    "pictureOne":"cricket",
+    "pictureTwo":"c",
+    "pictureThree":"cc",
+    "sound":"sound/cricket.mp3",
+    "correctAnswer":"pictureOne"
+  },
+  {
+    "levelNumber":"4",
+    "pictureOne":"d",
+    "pictureTwo":"dd",
+    "pictureThree":"walk",
+    "sound":"sound/Footsteps.mp3",
+    "correctAnswer":"pictureThree"
+  },
+  {
+    "levelNumber":"5",
+    "pictureOne":"e",
+    "pictureTwo":"sheep",
+    "pictureThree":"ee",
+    "sound":"sound/HerdingSheep.mp3",
+    "correctAnswer":"pictureTwo"
+  },
+  {
+    "levelNumber":"6",
+    "pictureOne":"f",
+    "pictureTwo":"hyena",
+    "pictureThree":"ff",
+    "sound":"sound/Hyena.mp3",
+    "correctAnswer":"pictureTwo"
+  },
+  {
+    "levelNumber":"7",
+    "pictureOne":"baby",
+    "pictureTwo":"gg",
+    "pictureThree":"g",
+    "sound":"sound/Child.mp3",
+    "correctAnswer":"pictureOne"
+  },
+  {
+    "levelNumber":"8",
+    "pictureOne":"h",
+    "pictureTwo":"hh",
+    "pictureThree":"morse",
+    "sound":"sound/MorseCode.mp3",
+    "correctAnswer":"pictureThree"
+  }
+,
+  {
+    "levelNumber":"9",
+    "pictureOne":"i",
+    "pictureTwo":"train",
+    "pictureThree":"ii",
+    "sound":"sound/Train.mp3",
+    "correctAnswer":"pictureTwo"
   }
 ]
 

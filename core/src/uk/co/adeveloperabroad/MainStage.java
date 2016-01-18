@@ -24,6 +24,7 @@ import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 import uk.co.adeveloperabroad.Controllers.DialogBoxController;
+import uk.co.adeveloperabroad.Controllers.InfoBoxController;
 import uk.co.adeveloperabroad.components.PictureComponent;
 import uk.co.adeveloperabroad.components.RecordSpeedComponent;
 import uk.co.adeveloperabroad.components.WalkBoxComponent;
@@ -95,8 +96,13 @@ public class MainStage extends Stage implements Telegraph {
         incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
 
         gameOverDialog = root.getChild("gameOverDialog").getEntity();
+        gameOverDialog.getComponent(TintComponent.class).color = Color.CLEAR;
         DialogBoxController dialogBoxController = new DialogBoxController();
         root.getChild("gameOverDialog").addScript(dialogBoxController);
+
+
+        InfoBoxController infoBoxController = new InfoBoxController();
+        root.getChild("intro").addScript(infoBoxController);
 
         RecordLabelController recordLabelController = new RecordLabelController();
         recordLabel = root.getChild("recordLabel").getEntity().add(new RecordSpeedComponent());
@@ -156,6 +162,7 @@ public class MainStage extends Stage implements Telegraph {
 
     private void playSound(float speed) {
         mysterySound.setPitch(soundId, speed * 0.2f);
+        mysterySound.setVolume(soundId, 1.0f);
         mysterySound.resume(soundId);
     }
 

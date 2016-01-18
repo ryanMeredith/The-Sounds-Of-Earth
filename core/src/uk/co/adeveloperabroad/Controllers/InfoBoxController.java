@@ -53,8 +53,8 @@ public class InfoBoxController implements IScript {
             childEntity.getComponent(TintComponent.class).color = Color.WHITE;
         }
 
-        transformComponent.x = 60;
-        transformComponent.y = 50;
+        transformComponent.x = 0;
+        transformComponent.y = 0;
     }
 
     @Override
