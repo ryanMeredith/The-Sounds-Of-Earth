@@ -1,601 +1,132 @@
 
 pack.png
-size: 2048,2048
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-The-Sounds-Of-Earth
+alienwalk2.0000
   rotate: false
-  xy: 838, 916
-  size: 152, 29
-  orig: 152, 29
-  offset: 0, 0
-  index: -1
-a
-  rotate: false
-  xy: 1967, 1662
-  size: 66, 64
-  orig: 66, 64
-  offset: 0, 0
-  index: -1
-a01
-  rotate: false
-  xy: 804, 1494
-  size: 250, 270
-  orig: 250, 270
-  offset: 0, 0
-  index: -1
-alarmClock
-  rotate: false
-  xy: 184, 280
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-atom
-  rotate: false
-  xy: 510, 2
-  size: 94, 41
-  orig: 94, 41
+  xy: 804, 2
+  size: 200, 200
+  orig: 200, 200
   offset: 0, 0
   index: -1
 atomLarge
   rotate: false
-  xy: 986, 1157
+  xy: 1439, 252
   size: 138, 61
   orig: 138, 61
   offset: 0, 0
   index: -1
-atrans
-  rotate: false
-  xy: 886, 270
-  size: 66, 64
-  orig: 66, 64
-  offset: 0, 0
-  index: -1
 auto
   rotate: false
-  xy: 2, 84
+  xy: 1006, 22
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 1566
+  xy: 2, 29
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
-bees
-  rotate: false
-  xy: 412, 418
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-blue
-  rotate: false
-  xy: 1020, 1009
-  size: 66, 64
-  orig: 66, 64
-  offset: 0, 0
-  index: -1
 bluefoot
   rotate: false
-  xy: 1896, 1282
+  xy: 1530, 170
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 bluefootTrans
   rotate: false
-  xy: 886, 336
+  xy: 1946, 347
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
-bluetrans
-  rotate: false
-  xy: 986, 1428
-  size: 66, 64
-  orig: 66, 64
-  offset: 0, 0
-  index: -1
-boilingWater
-  rotate: false
-  xy: 1684, 1728
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-cafe
-  rotate: false
-  xy: 730, 45
-  size: 178, 100
-  orig: 178, 100
-  offset: 0, 0
-  index: -1
-chimpanzee
-  rotate: false
-  xy: 1784, 1364
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-coffee-shop-1045100640
-  rotate: false
-  xy: 1866, 1728
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-correctBubble
-  rotate: false
-  xy: 1471, 1804
-  size: 211, 104
-  orig: 211, 104
-  offset: 0, 0
-  index: -1
-cricket
-  rotate: false
-  xy: 1168, 1201
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-d
-  rotate: false
-  xy: 1966, 1399
-  size: 62, 64
-  orig: 62, 64
-  offset: 0, 0
-  index: -1
-dancing
-  rotate: false
-  xy: 986, 1220
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-didgeridoo
-  rotate: false
-  xy: 838, 947
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-donkey-105719640
-  rotate: false
-  xy: 594, 600
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-dtrans
-  rotate: false
-  xy: 1967, 1531
-  size: 62, 64
-  orig: 62, 64
-  offset: 0, 0
-  index: -1
-fire-truck-780388640
-  rotate: false
-  xy: 1714, 1182
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-firespeech
-  rotate: false
-  xy: 366, 236
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-firstToolsBad
-  rotate: false
-  xy: 804, 1129
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-footsteps
-  rotate: false
-  xy: 548, 54
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-frame
-  rotate: false
-  xy: 730, 147
-  size: 178, 115
-  orig: 178, 115
-  offset: 0, 0
-  index: -1
-green
-  rotate: false
-  xy: 251, 2
-  size: 65, 63
-  orig: 65, 63
-  offset: 0, 0
-  index: -1
 greenFoot
   rotate: false
-  xy: 1896, 1200
+  xy: 1621, 202
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 greenFootTrans
   rotate: false
-  xy: 2, 2
+  xy: 1946, 429
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
-greentrans
+head001
   rotate: false
-  xy: 184, 2
-  size: 65, 63
-  orig: 65, 63
-  offset: 0, 0
-  index: -1
-guitar-756326640
-  rotate: false
-  xy: 230, 644
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-helicopter-1021033640
-  rotate: false
-  xy: 2, 266
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-herdingsheep
-  rotate: false
-  xy: 1238, 1383
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-horseCart
-  rotate: false
-  xy: 1603, 1546
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-hyena
-  rotate: false
-  xy: 1532, 1182
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-introDialog
-  rotate: false
-  xy: 2, 1084
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-jetplane
-  rotate: false
-  xy: 656, 902
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-kissMotherChild
-  rotate: false
-  xy: 1785, 1546
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-l001
-  rotate: false
-  xy: 1243, 1747
-  size: 214, 103
-  orig: 214, 103
-  offset: 0, 0
-  index: -1
-labelessdisc
-  rotate: false
-  xy: 2, 826
-  size: 424, 256
-  orig: 424, 256
+  xy: 1262, 169
+  size: 175, 144
+  orig: 175, 144
   offset: 0, 0
   index: -1
 largelens
   rotate: false
-  xy: 428, 888
+  xy: 1718, 315
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
-lens
-  rotate: false
-  xy: 730, 264
-  size: 154, 152
-  orig: 154, 152
-  offset: 0, 0
-  index: -1
-lion
-  rotate: false
-  xy: 594, 418
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-morse
-  rotate: false
-  xy: 1056, 1584
-  size: 181, 180
-  orig: 181, 180
-  offset: 0, 0
-  index: -1
-mudpot
-  rotate: false
-  xy: 776, 600
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-owl
-  rotate: false
-  xy: 230, 462
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-parrot
-  rotate: false
-  xy: 1421, 1565
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
 pinkFoot
   rotate: false
-  xy: 93, 2
+  xy: 1439, 170
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 pinkFootTrans
   rotate: false
-  xy: 1020, 1075
+  xy: 1946, 265
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
-pulsar
+record001
   rotate: false
-  xy: 366, 54
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-record
-  rotate: false
-  xy: 804, 1766
-  size: 437, 280
-  orig: 437, 280
-  offset: 0, 0
-  index: -1
-red
-  rotate: false
-  xy: 1966, 1465
-  size: 62, 64
-  orig: 62, 64
-  offset: 0, 0
-  index: -1
-redtrans
-  rotate: false
-  xy: 910, 204
-  size: 62, 64
-  orig: 62, 64
-  offset: 0, 0
-  index: -1
-replayDialog
-  rotate: false
-  xy: 1753, 1910
-  size: 280, 136
-  orig: 280, 136
+  xy: 804, 204
+  size: 456, 305
+  orig: 456, 305
   offset: 0, 0
   index: -1
 rightLens
   rotate: false
-  xy: 2, 630
+  xy: 1490, 315
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
-s
-  rotate: false
-  xy: 1967, 1597
-  size: 65, 63
-  orig: 65, 63
-  offset: 0, 0
-  index: -1
-sawing
-  rotate: false
-  xy: 1602, 1364
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-seal
-  rotate: false
-  xy: 1056, 1402
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-snail-424133640
-  rotate: false
-  xy: 2, 448
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-speechBubble
-  rotate: false
-  xy: 1471, 1910
-  size: 280, 136
-  orig: 280, 136
-  offset: 0, 0
-  index: -1
-speed
-  rotate: false
-  xy: 318, 2
-  size: 94, 41
-  orig: 94, 41
-  offset: 0, 0
-  index: -1
 speedLine
   rotate: false
-  xy: 1168, 1385
+  xy: 2, 12
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 speedLineLarge
   rotate: false
-  xy: 804, 1086
+  xy: 1188, 161
   size: 18, 41
   orig: 18, 41
   offset: 0, 0
   index: -1
-speedgrey
-  rotate: false
-  xy: 414, 2
-  size: 94, 41
-  orig: 94, 41
-  offset: 0, 0
-  index: -1
-speedline
-  rotate: false
-  xy: 366, 445
-  size: 17, 15
-  orig: 17, 15
-  offset: 0, 0
-  index: -1
-speedlinegrey
-  rotate: false
-  xy: 1532, 1366
-  size: 17, 15
-  orig: 17, 15
-  offset: 0, 0
-  index: -1
-star1
-  rotate: false
-  xy: 910, 162
-  size: 52, 40
-  orig: 52, 40
-  offset: 0, 0
-  index: -1
-star2
-  rotate: false
-  xy: 184, 582
-  size: 42, 46
-  orig: 42, 46
-  offset: 0, 0
-  index: -1
-strans
-  rotate: false
-  xy: 1020, 944
-  size: 65, 63
-  orig: 65, 63
-  offset: 0, 0
-  index: -1
 stylus
   rotate: false
-  xy: 184, 67
+  xy: 1579, 284
   size: 152, 29
   orig: 152, 29
   offset: 0, 0
   index: -1
-tameDog
-  rotate: false
-  xy: 1350, 1201
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-tractor
-  rotate: false
-  xy: 184, 98
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-train
-  rotate: false
-  xy: 412, 600
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-tribe
-  rotate: false
-  xy: 1239, 1565
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-trumpet
-  rotate: false
-  xy: 804, 1311
-  size: 180, 181
-  orig: 180, 181
-  offset: 0, 0
-  index: -1
-volcano-erupting-1056526640
-  rotate: false
-  xy: 776, 418
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-welding
-  rotate: false
-  xy: 656, 782
-  size: 178, 118
-  orig: 178, 118
-  offset: 0, 0
-  index: -1
-wind
-  rotate: false
-  xy: 1420, 1383
-  size: 180, 180
-  orig: 180, 180
-  offset: 0, 0
-  index: -1
-wrongBubble
-  rotate: false
-  xy: 428, 782
-  size: 211, 104
-  orig: 211, 104
-  offset: 0, 0
-  index: -1
 wrongLens
   rotate: false
-  xy: 1243, 1852
+  xy: 1262, 315
   size: 226, 194
   orig: 226, 194
-  offset: 0, 0
-  index: -1
-yodel
-  rotate: false
-  xy: 548, 236
-  size: 180, 180
-  orig: 180, 180
   offset: 0, 0
   index: -1

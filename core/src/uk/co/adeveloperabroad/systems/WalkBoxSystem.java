@@ -53,7 +53,7 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg3);
                 nextLeg = 1;
             }
-            System.out.println(nextLeg) ;
+
         } else if(isKeyDown()) {
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.A) && nextLeg == 1) {
@@ -100,7 +100,7 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
             MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
             ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
 
-            if(childZComponent.layerName.equals("transparant") ) {
+            if(childZComponent.layerName.equals("transparent") ) {
                 childMainItemComponent.visible = true;
             }
 

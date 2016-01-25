@@ -18,16 +18,14 @@ import uk.co.adeveloperabroad.RegionComparator;
 /**
  * Created by snow on 17/01/16.
  */
-public class AlienController implements IScript, Telegraph{
+public class AlienHeadController implements IScript, Telegraph{
 
     private Array<TextureAtlas.AtlasRegion> alienAtlasRegions;
     private Animation alienAnimation;
     private float animationTimeAlien;
-    private static float ALIEN_FPS = 1.0f / 180.0f;
-    private static Integer ALIEN_FRAMES_PER_LEG = 15;
-    private Integer nextLeg = 1;
+    private static float ALIEN_FPS = 1.0f / 24.0f;
+    private boolean runAnimation = false;
     private boolean hasTrackFinished = false;
-
     private TextureRegionComponent textureRegionComponent;
 
 
@@ -36,10 +34,10 @@ public class AlienController implements IScript, Telegraph{
 
         textureRegionComponent = entity.getComponent(TextureRegionComponent.class);
 
-        TextureAtlas alienAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/walkPacked/bodyAnim.atlas"));
+        TextureAtlas alienAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/headAnimPacked/head.atlas"));
         alienAtlasRegions = new Array<TextureAtlas.AtlasRegion>(alienAtlas.getRegions());
         alienAtlasRegions.sort(new RegionComparator());
-        alienAnimation = new Animation(ALIEN_FPS, alienAtlasRegions, Animation.PlayMode.LOOP_REVERSED);
+        alienAnimation = new Animation(ALIEN_FPS, alienAtlasRegions, Animation.PlayMode.NORMAL);
         addListeners();
     }
 
@@ -47,34 +45,19 @@ public class AlienController implements IScript, Telegraph{
     @Override
     public void act(float delta) {
 
-        animationTimeAlien = MathUtils.clamp(
-                animationTimeAlien + Gdx.graphics.getDeltaTime(),
-                0.0f,
-                (nextLeg - 1) * ALIEN_FPS * ALIEN_FRAMES_PER_LEG);
+        if (runAnimation ) {
+            animationTimeAlien  = animationTimeAlien + Gdx.graphics.getDeltaTime();
+            textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
+        }
 
-        textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
-    }
-
-    private void moveLeg(int leg) {
-
-        if (!hasTrackFinished) {
-            if (leg == 1) {
-                nextLeg = 2;
-            }
-
-            if (leg == 2) {
-                nextLeg = 3;
-            }
-
-            if (leg == 3) {
-                nextLeg = 1;
-                MessageManager.getInstance().dispatchMessage(0, this, MessageType.moreSpeed);
-
-            }
-            animationTimeAlien = ALIEN_FPS * ALIEN_FRAMES_PER_LEG * (leg - 1);
+        if (alienAnimation.isAnimationFinished(animationTimeAlien)&& !hasTrackFinished) {
+            runAnimation = false;
+            animationTimeAlien = 0;
         }
 
     }
+
+
 
     @Override
     public void dispose() {
@@ -82,13 +65,11 @@ public class AlienController implements IScript, Telegraph{
     }
 
     private void addListeners() {
-        MessageManager.getInstance().addListener(this, MessageType.timeout);
         MessageManager.getInstance().addListener(this, MessageType.startingPositions);
-        MessageManager.getInstance().addListener(this, MessageType.leg1);
-        MessageManager.getInstance().addListener(this, MessageType.leg2);
-        MessageManager.getInstance().addListener(this, MessageType.leg3);
+        MessageManager.getInstance().addListener(this, MessageType.timeout);
         MessageManager.getInstance().addListener(this, MessageType.win);
         MessageManager.getInstance().addListener(this, MessageType.lose);
+        MessageManager.getInstance().addListener(this, MessageType.leg3);
     }
 
     @Override
@@ -97,7 +78,7 @@ public class AlienController implements IScript, Telegraph{
         switch (msg.message) {
 
             case MessageType.timeout:
-               hasTrackFinished = true;
+                hasTrackFinished = true;
                 break;
             case MessageType.startingPositions:
                 animationTimeAlien = 0;
@@ -109,16 +90,8 @@ public class AlienController implements IScript, Telegraph{
             case MessageType.lose:
                 hasTrackFinished = true;
                 break;
-            case MessageType.leg1:
-                moveLeg(1);
-                break;
-
-            case MessageType.leg2:
-                moveLeg(2);
-                break;
-
             case MessageType.leg3:
-                moveLeg(3);
+                runAnimation = true;
                 break;
         }
         return true;

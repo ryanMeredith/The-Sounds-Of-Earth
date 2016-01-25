@@ -30,10 +30,10 @@ public class RecordLabelController implements IScript , Telegraph {
     @Override
     public void init(Entity entity) {
 
-        TextureAtlas labelAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/label/label.atlas"));
+        TextureAtlas labelAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/recordPacked/record.atlas"));
         labelAtlasRegions = new Array<TextureAtlas.AtlasRegion>(labelAtlas.getRegions());
         labelAtlasRegions.sort(new RegionComparator());
-        labelAnimation = new Animation(LABEL_FPS, labelAtlasRegions, Animation.PlayMode.LOOP);
+        labelAnimation = new Animation(LABEL_FPS, labelAtlasRegions, Animation.PlayMode.LOOP_REVERSED);
 
         textureRegionComponent = entity.getComponent(TextureRegionComponent.class);
         recordSpeedComponent = entity.getComponent(RecordSpeedComponent.class);
@@ -41,7 +41,7 @@ public class RecordLabelController implements IScript , Telegraph {
 
     @Override
     public void act(float delta) {
-        labelAnimationTime += recordSpeedComponent.recordSpeed * delta;
+        labelAnimationTime += recordSpeedComponent.recordSpeed * delta * 0.5f;
         textureRegionComponent.region = labelAnimation.getKeyFrame(labelAnimationTime);
     }
 

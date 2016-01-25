@@ -62,10 +62,9 @@ public class LevelManager {
     }
 
     private void loadPicture(String pictureIdentifier, String newPictureName, String correctAnswer) {
-
         Entity entity = root.getChild(pictureIdentifier).getEntity();
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
-        Entity oldPicture = nodeComponent.children.get(1);
+        Entity oldPicture = nodeComponent.children.get(0);
         Entity newPicture = root.getChild(newPictureName).getEntity();
         TextureRegionComponent newTexture = ComponentRetriever.get(newPicture, TextureRegionComponent.class);
         oldPicture.add(newTexture);

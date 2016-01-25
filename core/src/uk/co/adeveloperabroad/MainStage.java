@@ -23,6 +23,8 @@ import com.uwsoft.editor.renderer.components.label.LabelComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
+import uk.co.adeveloperabroad.Controllers.AlienController;
+import uk.co.adeveloperabroad.Controllers.AlienHeadController;
 import uk.co.adeveloperabroad.Controllers.DialogBoxController;
 import uk.co.adeveloperabroad.Controllers.InfoBoxController;
 import uk.co.adeveloperabroad.components.PictureComponent;
@@ -87,26 +89,30 @@ public class MainStage extends Stage implements Telegraph {
 
         sceneLoader.getEngine().addSystem(pictureSystem);
 
-        uk.co.adeveloperabroad.Controllers.AlienController alienController = new uk.co.adeveloperabroad.Controllers.AlienController();
+        AlienController alienController = new AlienController();
         root.getChild("alien").addScript(alienController);
 
-        correct = root.getChild("correct").getEntity();
-        incorrect = root.getChild("incorrect").getEntity();
-        correct.getComponent(TintComponent.class).color = Color.CLEAR;
-        incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
-
-        gameOverDialog = root.getChild("gameOverDialog").getEntity();
-        gameOverDialog.getComponent(TintComponent.class).color = Color.CLEAR;
-        DialogBoxController dialogBoxController = new DialogBoxController();
-        root.getChild("gameOverDialog").addScript(dialogBoxController);
+        AlienHeadController alienHeadController = new AlienHeadController();
+        root.getChild("alienHead").addScript(alienHeadController);
 
 
-        InfoBoxController infoBoxController = new InfoBoxController();
-        root.getChild("intro").addScript(infoBoxController);
+//        correct = root.getChild("correct").getEntity();
+//        incorrect = root.getChild("incorrect").getEntity();
+//        correct.getComponent(TintComponent.class).color = Color.CLEAR;
+//        incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
+
+//        gameOverDialog = root.getChild("gameOverDialog").getEntity();
+//        gameOverDialog.getComponent(TintComponent.class).color = Color.CLEAR;
+//        DialogBoxController dialogBoxController = new DialogBoxController();
+      //  root.getChild("gameOverDialog").addScript(dialogBoxController);
+
+
+//        InfoBoxController infoBoxController = new InfoBoxController();
+//        root.getChild("intro").addScript(infoBoxController);
 
         RecordLabelController recordLabelController = new RecordLabelController();
-        recordLabel = root.getChild("recordLabel").getEntity().add(new RecordSpeedComponent());
-        root.getChild("recordLabel").addScript(recordLabelController);
+        recordLabel = root.getChild("record").getEntity().add(new RecordSpeedComponent());
+        root.getChild("record").addScript(recordLabelController);
 
         uk.co.adeveloperabroad.Controllers.StylusController stylusController = new uk.co.adeveloperabroad.Controllers.StylusController();
         stylus = root.getChild("stylus").getEntity().add(new RecordSpeedComponent());

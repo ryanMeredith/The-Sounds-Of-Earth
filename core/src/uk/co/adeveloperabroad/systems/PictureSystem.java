@@ -36,7 +36,7 @@ public class PictureSystem extends IteratingSystem {
        PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
 
         if(nodeComponent == null) return;
-        
+
 
         for (int i = 0; i < nodeComponent.children.size; i++) {
 

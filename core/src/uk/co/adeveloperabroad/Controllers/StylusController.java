@@ -39,11 +39,11 @@ public class StylusController implements IScript, Telegraph {
     public void act(float delta) {
 
         transformComponent.x = MathUtils.clamp(transformComponent.x
-                + (delta * recordSpeedComponent.recordSpeed * 0.25f),startingPosition, endingPosition);
+                + (delta * recordSpeedComponent.recordSpeed * 0.10f),startingPosition, endingPosition);
 
 
         if (transformComponent.x == endingPosition) {
-            MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.timeout);
+//            MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.timeout);
         }
 
         if (transformComponent.x > (endingPosition - 8) && transformComponent.x <= endingPosition) {
