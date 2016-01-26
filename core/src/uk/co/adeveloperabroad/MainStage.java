@@ -21,7 +21,10 @@ import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 import uk.co.adeveloperabroad.Controllers.AlienController;
 import uk.co.adeveloperabroad.Controllers.AlienHeadController;
+import uk.co.adeveloperabroad.Controllers.PlayAgainController;
 import uk.co.adeveloperabroad.Controllers.SpeechController;
+import uk.co.adeveloperabroad.Controllers.SpeedIndicatorController;
+import uk.co.adeveloperabroad.Controllers.StylusController;
 import uk.co.adeveloperabroad.components.PictureComponent;
 import uk.co.adeveloperabroad.components.RecordSpeedComponent;
 import uk.co.adeveloperabroad.components.WalkBoxComponent;
@@ -81,38 +84,22 @@ public class MainStage extends Stage implements Telegraph {
 
         sceneLoader.addComponentsByTagName("input", WalkBoxComponent.class);
         sceneLoader.getEngine().addSystem(walkBoxSystem);
-
         sceneLoader.getEngine().addSystem(pictureSystem);
 
-        AlienController alienController = new AlienController();
-        root.getChild("alien").addScript(alienController);
 
-        AlienHeadController alienHeadController = new AlienHeadController();
-        root.getChild("alienHead").addScript(alienHeadController);
+        root.getChild("alien").addScript(new AlienController());
+        root.getChild("alienHead").addScript(new AlienHeadController());
+        root.getChild("speech").addScript(new SpeechController());
+        root.getChild("playAgain").addScript(new PlayAgainController());
 
-        SpeechController speechController = new SpeechController();
-        root.getChild("speech").addScript(speechController);
-
-//        gameOverDialog = root.getChild("gameOverDialog").getEntity();
-//        gameOverDialog.getComponent(TintComponent.class).color = Color.CLEAR;
-
-      //  root.getChild("gameOverDialog").addScript(dialogBoxController);
-
-
-//        InfoBoxController infoBoxController = new InfoBoxController();
-//        root.getChild("intro").addScript(infoBoxController);
-
-        RecordLabelController recordLabelController = new RecordLabelController();
         recordLabel = root.getChild("record").getEntity().add(new RecordSpeedComponent());
-        root.getChild("record").addScript(recordLabelController);
+        root.getChild("record").addScript(new RecordLabelController());
 
-        uk.co.adeveloperabroad.Controllers.StylusController stylusController = new uk.co.adeveloperabroad.Controllers.StylusController();
         stylus = root.getChild("stylus").getEntity().add(new RecordSpeedComponent());
-        root.getChild("stylus").addScript(stylusController);
+        root.getChild("stylus").addScript(new StylusController());
 
-        uk.co.adeveloperabroad.Controllers.SpeedIndicatorController speedIndicatorController = new uk.co.adeveloperabroad.Controllers.SpeedIndicatorController();
         speedIndicator = root.getChild("speedIndicator").getEntity().add(new RecordSpeedComponent());
-        root.getChild("speedIndicator").addScript(speedIndicatorController);
+        root.getChild("speedIndicator").addScript(new SpeedIndicatorController());
 
         addMessageListeners();
 
@@ -198,8 +185,6 @@ public class MainStage extends Stage implements Telegraph {
                     MessageManager.getInstance().dispatchMessage(0, null, MessageType.gameOver);
                 }
                 unlockButtons();
-//                correct.getComponent(TintComponent.class).color = Color.CLEAR;
-//                incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
             }
         }, 4);
 
@@ -219,14 +204,11 @@ public class MainStage extends Stage implements Telegraph {
         switch (msg.message) {
 
             case MessageType.win:
-//                correct.getComponent(TintComponent.class).color = Color.WHITE;
-
                 score++;
                 scoreLabel.setText(binaryDisplay.getScore(score));
                 guessed();
                 break;
             case MessageType.lose:
-//                incorrect.getComponent(TintComponent.class).color = Color.WHITE;
                 guessed();
                 break;
             case MessageType.moreSpeed:
@@ -234,6 +216,7 @@ public class MainStage extends Stage implements Telegraph {
                 unlockButtons();
                 break;
             case MessageType.restart:
+                score = 0;
                 playLevel(1);
                 break;
         }

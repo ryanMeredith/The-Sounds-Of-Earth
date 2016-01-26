@@ -1,187 +1,544 @@
 
 pack.png
-size: 2048,1024
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+aircraft
+  rotate: false
+  xy: 184, 268
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+alarmClock
+  rotate: false
+  xy: 548, 55
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 alienwalk2.0000
   rotate: false
-  xy: 1827, 814
+  xy: 2, 612
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
+armyMarch
+  rotate: false
+  xy: 912, 237
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 atomLarge
   rotate: false
-  xy: 463, 258
+  xy: 2, 2
   size: 138, 61
   orig: 138, 61
   offset: 0, 0
   index: -1
 auto
   rotate: false
-  xy: 804, 502
+  xy: 857, 1390
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 534
+  xy: 2, 1542
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
+bees
+  rotate: false
+  xy: 366, 55
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 bluefoot
   rotate: false
-  xy: 675, 370
+  xy: 1403, 1300
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 bluefootTrans
   rotate: false
-  xy: 1736, 738
+  xy: 1585, 1482
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+boilingWater
+  rotate: false
+  xy: 857, 1026
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+chainsaw
+  rotate: false
+  xy: 750, 601
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+children-playing-329234640
+  rotate: false
+  xy: 1599, 1837
+  size: 180, 185
+  orig: 180, 185
+  offset: 0, 0
+  index: -1
 chimpanzee
   rotate: false
-  xy: 986, 502
+  xy: 568, 419
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+coffee-shop-1045100640
+  rotate: false
+  xy: 204, 632
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+cookooclock
+  rotate: false
+  xy: 643, 965
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+cow-893649640
+  rotate: false
+  xy: 1325, 1646
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+cricket
+  rotate: false
+  xy: 857, 1208
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+dancing
+  rotate: false
+  xy: 675, 1178
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+didgeridoo
+  rotate: false
+  xy: 461, 965
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+donkey-105719640
+  rotate: false
+  xy: 1039, 1282
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 fire
   rotate: false
-  xy: 2, 2
+  xy: 2, 1010
   size: 265, 252
   orig: 265, 252
   offset: 0, 0
   index: -1
+fire-truck-780388640
+  rotate: false
+  xy: 932, 419
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+firespeech
+  rotate: false
+  xy: 1094, 237
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+firstTools
+  rotate: false
+  xy: 548, 237
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+footsteps
+  rotate: false
+  xy: 1403, 1464
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+frog-754625640
+  rotate: false
+  xy: 730, 237
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 greenFoot
   rotate: false
-  xy: 1827, 732
+  xy: 1494, 1382
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 greenFootTrans
   rotate: false
-  xy: 675, 452
+  xy: 1585, 1564
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+guitar-756326640
+  rotate: false
+  xy: 1143, 1646
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 head001
   rotate: false
-  xy: 1316, 674
+  xy: 1871, 1696
   size: 175, 144
   orig: 175, 144
   offset: 0, 0
   index: -1
+helicopter-1021033640
+  rotate: false
+  xy: 675, 1360
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+herdingsheep
+  rotate: false
+  xy: 1689, 1473
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+horseCart
+  rotate: false
+  xy: 204, 450
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+hyena
+  rotate: false
+  xy: 750, 419
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+kissMotherChild
+  rotate: false
+  xy: 184, 86
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 largelens
   rotate: false
-  xy: 1599, 820
+  xy: 1371, 1828
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
 lens
   rotate: false
-  xy: 463, 321
+  xy: 463, 1329
   size: 210, 211
   orig: 210, 211
   offset: 0, 0
   index: -1
+lion
+  rotate: false
+  xy: 1221, 1464
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+morse
+  rotate: false
+  xy: 1781, 1842
+  size: 181, 180
+  orig: 181, 180
+  offset: 0, 0
+  index: -1
+motorboat-281862640
+  rotate: false
+  xy: 633, 783
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+mudpot
+  rotate: false
+  xy: 1221, 1282
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+owl
+  rotate: false
+  xy: 366, 237
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+parrot
+  rotate: false
+  xy: 932, 601
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 pinkFoot
   rotate: false
-  xy: 1645, 738
+  xy: 1403, 1382
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 pinkFootTrans
   rotate: false
-  xy: 1918, 732
+  xy: 1585, 1400
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+playagain
+  rotate: false
+  xy: 804, 1572
+  size: 227, 118
+  orig: 227, 118
+  offset: 0, 0
+  index: -1
+pulsar
+  rotate: false
+  xy: 1039, 1464
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+radio-590361640
+  rotate: false
+  xy: 1039, 1100
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 record001
   rotate: false
-  xy: 2, 256
+  xy: 2, 1264
   size: 459, 276
   orig: 459, 276
   offset: 0, 0
   index: -1
+remoteHeli
+  rotate: false
+  xy: 386, 601
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 rightLens
   rotate: false
-  xy: 1371, 820
+  xy: 2, 814
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
+run
+  rotate: false
+  xy: 1507, 1646
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+sawing
+  rotate: false
+  xy: 386, 419
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+seal
+  rotate: false
+  xy: 451, 783
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 shadow
   rotate: false
-  xy: 1645, 693
+  xy: 1039, 1055
   size: 114, 43
   orig: 114, 43
   offset: 0, 0
   index: -1
+snail-424133640
+  rotate: false
+  xy: 2, 247
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 speech-bubble
   rotate: false
-  xy: 1143, 691
+  xy: 1871, 1567
   size: 171, 127
   orig: 171, 127
   offset: 0, 0
   index: -1
 speedLine
   rotate: false
-  xy: 2029, 999
+  xy: 804, 1555
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 speedLineLarge
   rotate: false
-  xy: 603, 278
+  xy: 184, 569
   size: 18, 41
   orig: 18, 41
   offset: 0, 0
   index: -1
 stylus
   rotate: false
-  xy: 269, 18
+  xy: 645, 1147
   size: 152, 29
   orig: 152, 29
   offset: 0, 0
   index: -1
+tameDog
+  rotate: false
+  xy: 568, 601
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+tractor
+  rotate: false
+  xy: 730, 55
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+traffic-332857640
+  rotate: false
+  xy: 2, 65
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+train
+  rotate: false
+  xy: 269, 875
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+tribe
+  rotate: false
+  xy: 463, 1147
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+trumpet
+  rotate: false
+  xy: 2, 429
+  size: 180, 181
+  orig: 180, 181
+  offset: 0, 0
+  index: -1
+tvtestpatern
+  rotate: false
+  xy: 1689, 1655
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+typewriter
+  rotate: false
+  xy: 1094, 55
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+volcano-erupting-1056526640
+  rotate: false
+  xy: 1221, 1100
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 voyager2
   rotate: false
-  xy: 804, 684
+  xy: 804, 1692
   size: 337, 330
   orig: 337, 330
   offset: 0, 0
   index: -1
+voyager3
+  rotate: false
+  xy: 1964, 1951
+  size: 72, 71
+  orig: 72, 71
+  offset: 0, 0
+  index: -1
 walk.0000
   rotate: false
-  xy: 269, 49
+  xy: 269, 1057
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk3.0000
   rotate: false
-  xy: 1493, 668
+  xy: 1871, 1415
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
+wind
+  rotate: false
+  xy: 815, 783
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+windsor-710823640
+  rotate: false
+  xy: 912, 55
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
 wrongLens
   rotate: false
-  xy: 1143, 820
+  xy: 1143, 1828
   size: 226, 194
   orig: 226, 194
   offset: 0, 0

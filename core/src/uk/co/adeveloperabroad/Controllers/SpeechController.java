@@ -6,7 +6,6 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.label.LabelComponent;
@@ -52,44 +51,44 @@ public class SpeechController implements IScript, Telegraph {
 
     public void setWinningMessages() {
         winningMessages = new Array<String>(17);
-         winningMessages.add("Congratulations!\nYou are riding the\nlight wave of success!");
-         winningMessages.add("Great win! \nThe galaxy's the limit!");
-         winningMessages.add("Your a natural, \nhow did you get so good?");
-         winningMessages.add("You're a rocket ship \nflying high!");
-         winningMessages.add("Bang\nZoom\nStraight to the Moon");
-         winningMessages.add("You are brighter\nthan the\nsun");
-         winningMessages.add("You Rock-it\n HARD");
-         winningMessages.add("You eclipse\n the competition");
-         winningMessages.add("The cow jumped\n over the\nMoooooooon");
-         winningMessages.add("You don't even\nfeel the pressure");
-         winningMessages.add("Faster than\nthe speed\nof light");
-         winningMessages.add("Enjoy a\nMars at \nlaunch time");
-         winningMessages.add("Enjoy a cup of\n gravi-tea");
-         winningMessages.add("Faster than\nthe speed\nof light");
-         winningMessages.add("Hey you are\nlooking pretty\nstella");
+         winningMessages.add("You're riding the light wave of success!");
+         winningMessages.add("Great win! The galaxy's the limit!");
+         winningMessages.add("Your a natural, how did you get so good?");
+         winningMessages.add("You're a rocket ship flying high!");
+         winningMessages.add("Bang Zoom Straight to the Moon");
+         winningMessages.add("You are brighter than the sun");
+         winningMessages.add("You Rock-it HARD");
+         winningMessages.add("You eclipse the competition");
+         winningMessages.add("The cow jumped over the Moooooooon");
+         winningMessages.add("You don't even feel the pressure");
+         winningMessages.add("Faster than the speed of light");
+         winningMessages.add("Enjoy a Mars at launch time");
+         winningMessages.add("Have a cup of gravi-tea");
+         winningMessages.add("Faster than the speed of light");
+         winningMessages.add("Hey you are looking pretty stella");
          winningMessages.add("You're a star");
-         winningMessages.add("You're out of\nthis world");
+         winningMessages.add("You're out of this world");
     }
 
     public void setLosingMessages() {
         losingMessages = new Array<String>(17);
-        losingMessages.add("You'll go far\n the further the better");
-        losingMessages.add("You are one\n UGLY\n alien");
-        losingMessages.add("A half evolved\nstarsnail\ncould do better");
+        losingMessages.add("You'll go far  the further the better");
+        losingMessages.add("You are one UGLY alien");
+        losingMessages.add("A half evolved starsnail could do better");
         losingMessages.add("Pathetic");
-        losingMessages.add("Go back to the\nprimordial soup");
-        losingMessages.add("You made me\nRun\nfor this?");
-        losingMessages.add("I think you just\nbroke the law\nof gravity");
-        losingMessages.add("you're back\nfrom outer space\nwith a sad look\non you're face");
-        losingMessages.add("What does the\nspace turkey say?\nHubble Hubble");
-        losingMessages.add("Did you forget\nto put money in\nthe parking meteor?");
-        losingMessages.add("You are a\nLuna-tick");
-        losingMessages.add("Have you\nbeen reading\ncomet books?");
-        losingMessages.add("Space is out there\nnot between\n your ears");
-        losingMessages.add("You've been\ndemoted\n like Pluto");
-        losingMessages.add("You've just\ndrained the\natmosphere");
-        losingMessages.add("Do you need\n some space?");
-        losingMessages.add("Why so\n Sirius?");
+        losingMessages.add("Go back to the primordial soup");
+        losingMessages.add("You made me Run for this?");
+        losingMessages.add("I think you just broke the law of gravity");
+        losingMessages.add("You're as ugly as a human");
+        losingMessages.add("What does the space turkey say? Hubble Hubble");
+        losingMessages.add("Did you forget to put money in the parking meteor?");
+        losingMessages.add("You are a Luna-tick");
+        losingMessages.add("Have you been reading comet books?");
+        losingMessages.add("Space is out there not between your ears");
+        losingMessages.add("You've been demoted like Pluto");
+        losingMessages.add("You've just drained the atmosphere");
+        losingMessages.add("Do you need some space?");
+        losingMessages.add("Why so Sirius?");
     }
 
     @Override
