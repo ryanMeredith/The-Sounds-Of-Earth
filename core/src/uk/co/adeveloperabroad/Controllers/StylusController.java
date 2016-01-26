@@ -43,7 +43,7 @@ public class StylusController implements IScript, Telegraph {
 
 
         if (transformComponent.x == endingPosition) {
-//            MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.timeout);
+            MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.timeout);
         }
 
         if (transformComponent.x > (endingPosition - 8) && transformComponent.x <= endingPosition) {

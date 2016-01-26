@@ -1,7 +1,8 @@
-package uk.co.adeveloperabroad.systems;
+package uk.co.adeveloperabroad.Controllers;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -37,6 +38,7 @@ public class RecordLabelController implements IScript , Telegraph {
 
         textureRegionComponent = entity.getComponent(TextureRegionComponent.class);
         recordSpeedComponent = entity.getComponent(RecordSpeedComponent.class);
+        MessageManager.getInstance().addListener(this, MessageType.startingPositions);
     }
 
     @Override

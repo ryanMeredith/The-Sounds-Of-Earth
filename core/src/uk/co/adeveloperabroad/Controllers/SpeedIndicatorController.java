@@ -48,7 +48,6 @@ public class SpeedIndicatorController implements IScript {
     }
 
     public void setColor(float power) {
-        Gdx.app.log("power: ", Float.toString(power));
         //0 full green, 1 full red
 
         float blue = 0.0f;

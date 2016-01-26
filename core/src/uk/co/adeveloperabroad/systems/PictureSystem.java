@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
+import com.uwsoft.editor.renderer.components.PolygonComponent;
 import com.uwsoft.editor.renderer.components.ViewPortComponent;
 import com.uwsoft.editor.renderer.components.ZIndexComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
@@ -24,6 +25,7 @@ import uk.co.adeveloperabroad.components.PictureComponent;
 public class PictureSystem extends IteratingSystem {
 
 
+
     public PictureSystem() {
         super(Family.all(PictureComponent.class).get());
 
@@ -33,7 +35,8 @@ public class PictureSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
 
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
-       PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
+        PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
+        PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
 
         if(nodeComponent == null) return;
 
@@ -44,7 +47,7 @@ public class PictureSystem extends IteratingSystem {
                 MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
                 ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
 
-                if(isTouched(entity) && !pictureComponent.isTouched) {
+                if(isTouched(entity, polygonComponent) && !pictureComponent.isTouched) {
 
                     if(childZComponent.layerName.equals("right")
                             && pictureComponent.isCorrectAnswer) {
@@ -73,10 +76,11 @@ public class PictureSystem extends IteratingSystem {
 
     }
 
-    private boolean isTouched(Entity entity) {
+    private boolean isTouched(Entity entity, PolygonComponent polygonComponent) {
 
         if(Gdx.input.justTouched()) {
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
+            dimensionsComponent.setPolygon(polygonComponent);
             Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
             TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
 

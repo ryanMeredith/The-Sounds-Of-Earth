@@ -1,131 +1,187 @@
 
 pack.png
-size: 2048,512
+size: 2048,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 alienwalk2.0000
   rotate: false
-  xy: 804, 2
+  xy: 1827, 814
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 atomLarge
   rotate: false
-  xy: 1439, 252
+  xy: 463, 258
   size: 138, 61
   orig: 138, 61
   offset: 0, 0
   index: -1
 auto
   rotate: false
-  xy: 1006, 22
+  xy: 804, 502
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 29
+  xy: 2, 534
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 bluefoot
   rotate: false
-  xy: 1530, 170
+  xy: 675, 370
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 bluefootTrans
   rotate: false
-  xy: 1946, 347
+  xy: 1736, 738
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+chimpanzee
+  rotate: false
+  xy: 986, 502
+  size: 180, 180
+  orig: 180, 180
+  offset: 0, 0
+  index: -1
+fire
+  rotate: false
+  xy: 2, 2
+  size: 265, 252
+  orig: 265, 252
+  offset: 0, 0
+  index: -1
 greenFoot
   rotate: false
-  xy: 1621, 202
+  xy: 1827, 732
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 greenFootTrans
   rotate: false
-  xy: 1946, 429
+  xy: 675, 452
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 head001
   rotate: false
-  xy: 1262, 169
+  xy: 1316, 674
   size: 175, 144
   orig: 175, 144
   offset: 0, 0
   index: -1
 largelens
   rotate: false
-  xy: 1718, 315
+  xy: 1599, 820
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
+lens
+  rotate: false
+  xy: 463, 321
+  size: 210, 211
+  orig: 210, 211
+  offset: 0, 0
+  index: -1
 pinkFoot
   rotate: false
-  xy: 1439, 170
+  xy: 1645, 738
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 pinkFootTrans
   rotate: false
-  xy: 1946, 265
+  xy: 1918, 732
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 record001
   rotate: false
-  xy: 804, 204
-  size: 456, 305
-  orig: 456, 305
+  xy: 2, 256
+  size: 459, 276
+  orig: 459, 276
   offset: 0, 0
   index: -1
 rightLens
   rotate: false
-  xy: 1490, 315
+  xy: 1371, 820
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
+shadow
+  rotate: false
+  xy: 1645, 693
+  size: 114, 43
+  orig: 114, 43
+  offset: 0, 0
+  index: -1
+speech-bubble
+  rotate: false
+  xy: 1143, 691
+  size: 171, 127
+  orig: 171, 127
+  offset: 0, 0
+  index: -1
 speedLine
   rotate: false
-  xy: 2, 12
+  xy: 2029, 999
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 speedLineLarge
   rotate: false
-  xy: 1188, 161
+  xy: 603, 278
   size: 18, 41
   orig: 18, 41
   offset: 0, 0
   index: -1
 stylus
   rotate: false
-  xy: 1579, 284
+  xy: 269, 18
   size: 152, 29
   orig: 152, 29
   offset: 0, 0
   index: -1
+voyager2
+  rotate: false
+  xy: 804, 684
+  size: 337, 330
+  orig: 337, 330
+  offset: 0, 0
+  index: -1
+walk.0000
+  rotate: false
+  xy: 269, 49
+  size: 190, 205
+  orig: 190, 205
+  offset: 0, 0
+  index: -1
+walk3.0000
+  rotate: false
+  xy: 1493, 668
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
 wrongLens
   rotate: false
-  xy: 1262, 315
+  xy: 1143, 820
   size: 226, 194
   orig: 226, 194
   offset: 0, 0

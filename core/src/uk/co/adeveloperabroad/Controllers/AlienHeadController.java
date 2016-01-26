@@ -69,7 +69,7 @@ public class AlienHeadController implements IScript, Telegraph{
         MessageManager.getInstance().addListener(this, MessageType.timeout);
         MessageManager.getInstance().addListener(this, MessageType.win);
         MessageManager.getInstance().addListener(this, MessageType.lose);
-        MessageManager.getInstance().addListener(this, MessageType.leg3);
+        MessageManager.getInstance().addListener(this, MessageType.leg2);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class AlienHeadController implements IScript, Telegraph{
             case MessageType.lose:
                 hasTrackFinished = true;
                 break;
-            case MessageType.leg3:
+            case MessageType.leg2:
                 runAnimation = true;
                 break;
         }

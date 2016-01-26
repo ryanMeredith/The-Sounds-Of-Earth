@@ -29,6 +29,7 @@ public class PictureController implements IScript {
         this.entity = entity;
         nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
         pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
+
     }
 
     @Override

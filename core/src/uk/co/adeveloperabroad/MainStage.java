@@ -8,7 +8,6 @@ import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -16,22 +15,18 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.components.TextureRegionComponent;
-import com.uwsoft.editor.renderer.components.TintComponent;
-import com.uwsoft.editor.renderer.components.TransformComponent;
 import com.uwsoft.editor.renderer.components.label.LabelComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 import uk.co.adeveloperabroad.Controllers.AlienController;
 import uk.co.adeveloperabroad.Controllers.AlienHeadController;
-import uk.co.adeveloperabroad.Controllers.DialogBoxController;
-import uk.co.adeveloperabroad.Controllers.InfoBoxController;
+import uk.co.adeveloperabroad.Controllers.SpeechController;
 import uk.co.adeveloperabroad.components.PictureComponent;
 import uk.co.adeveloperabroad.components.RecordSpeedComponent;
 import uk.co.adeveloperabroad.components.WalkBoxComponent;
 import uk.co.adeveloperabroad.systems.PictureSystem;
-import uk.co.adeveloperabroad.systems.RecordLabelController;
+import uk.co.adeveloperabroad.Controllers.RecordLabelController;
 import uk.co.adeveloperabroad.systems.WalkBoxSystem;
 
 /**
@@ -95,15 +90,12 @@ public class MainStage extends Stage implements Telegraph {
         AlienHeadController alienHeadController = new AlienHeadController();
         root.getChild("alienHead").addScript(alienHeadController);
 
-
-//        correct = root.getChild("correct").getEntity();
-//        incorrect = root.getChild("incorrect").getEntity();
-//        correct.getComponent(TintComponent.class).color = Color.CLEAR;
-//        incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
+        SpeechController speechController = new SpeechController();
+        root.getChild("speech").addScript(speechController);
 
 //        gameOverDialog = root.getChild("gameOverDialog").getEntity();
 //        gameOverDialog.getComponent(TintComponent.class).color = Color.CLEAR;
-//        DialogBoxController dialogBoxController = new DialogBoxController();
+
       //  root.getChild("gameOverDialog").addScript(dialogBoxController);
 
 
@@ -206,8 +198,8 @@ public class MainStage extends Stage implements Telegraph {
                     MessageManager.getInstance().dispatchMessage(0, null, MessageType.gameOver);
                 }
                 unlockButtons();
-                correct.getComponent(TintComponent.class).color = Color.CLEAR;
-                incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
+//                correct.getComponent(TintComponent.class).color = Color.CLEAR;
+//                incorrect.getComponent(TintComponent.class).color = Color.CLEAR;
             }
         }, 4);
 
@@ -227,14 +219,14 @@ public class MainStage extends Stage implements Telegraph {
         switch (msg.message) {
 
             case MessageType.win:
-                correct.getComponent(TintComponent.class).color = Color.WHITE;
+//                correct.getComponent(TintComponent.class).color = Color.WHITE;
 
                 score++;
                 scoreLabel.setText(binaryDisplay.getScore(score));
                 guessed();
                 break;
             case MessageType.lose:
-                incorrect.getComponent(TintComponent.class).color = Color.WHITE;
+//                incorrect.getComponent(TintComponent.class).color = Color.WHITE;
                 guessed();
                 break;
             case MessageType.moreSpeed:

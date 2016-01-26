@@ -23,8 +23,8 @@ public class AlienController implements IScript, Telegraph{
     private Array<TextureAtlas.AtlasRegion> alienAtlasRegions;
     private Animation alienAnimation;
     private float animationTimeAlien;
-    private static float ALIEN_FPS = 1.0f / 180.0f;
-    private static Integer ALIEN_FRAMES_PER_LEG = 15;
+    private static float ALIEN_FPS = 1.0f / 18.0f;
+    private static Integer ALIEN_FRAMES_PER_LEG = 9;
     private Integer nextLeg = 1;
     private boolean hasTrackFinished = false;
 
@@ -36,16 +36,18 @@ public class AlienController implements IScript, Telegraph{
 
         textureRegionComponent = entity.getComponent(TextureRegionComponent.class);
 
-        TextureAtlas alienAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/walkPacked/bodyAnim.atlas"));
+        TextureAtlas alienAtlas = new TextureAtlas(Gdx.files.internal("spriteAnimations/walkPacked/walk.atlas"));
         alienAtlasRegions = new Array<TextureAtlas.AtlasRegion>(alienAtlas.getRegions());
         alienAtlasRegions.sort(new RegionComparator());
-        alienAnimation = new Animation(ALIEN_FPS, alienAtlasRegions, Animation.PlayMode.LOOP_REVERSED);
+        alienAnimation = new Animation(ALIEN_FPS, alienAtlasRegions, Animation.PlayMode.LOOP);
         addListeners();
     }
 
 
     @Override
     public void act(float delta) {
+
+
 
         animationTimeAlien = MathUtils.clamp(
                 animationTimeAlien + Gdx.graphics.getDeltaTime(),
@@ -67,7 +69,7 @@ public class AlienController implements IScript, Telegraph{
             }
 
             if (leg == 3) {
-                nextLeg = 1;
+                nextLeg = 4; //one again ;)
                 MessageManager.getInstance().dispatchMessage(0, this, MessageType.moreSpeed);
 
             }
