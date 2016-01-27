@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -54,9 +55,6 @@ public class MainStage extends Stage implements Telegraph {
     private Entity stylus;
     private Entity speedIndicator;
     private Entity recordLabel;
-    private Entity correct;
-    private Entity incorrect;
-    private Entity gameOverDialog;
 
     private Sound mysterySound;
     private Long soundId;
@@ -109,6 +107,8 @@ public class MainStage extends Stage implements Telegraph {
 
         playLevel(1);
 
+
+
     }
 
     @Override
@@ -128,6 +128,11 @@ public class MainStage extends Stage implements Telegraph {
         } else {
             playSound(recordSpeed);
         }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
+
     }
 
     @Override

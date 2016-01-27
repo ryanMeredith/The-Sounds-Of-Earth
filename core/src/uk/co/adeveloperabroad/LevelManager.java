@@ -52,6 +52,7 @@ public class LevelManager {
         }
 
         mysterySound = Gdx.audio.newSound(Gdx.files.internal(currentLevel.sound));
+
     }
 
     public void loadPictures() {

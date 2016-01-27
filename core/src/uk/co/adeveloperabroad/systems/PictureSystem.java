@@ -36,7 +36,6 @@ public class PictureSystem extends IteratingSystem {
 
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
         PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
-        PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
 
         if(nodeComponent == null) return;
 
@@ -47,7 +46,7 @@ public class PictureSystem extends IteratingSystem {
                 MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
                 ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
 
-                if(isTouched(entity, polygonComponent) && !pictureComponent.isTouched) {
+                if(isTouched(entity) && !pictureComponent.isTouched) {
 
                     if(childZComponent.layerName.equals("right")
                             && pictureComponent.isCorrectAnswer) {
@@ -76,10 +75,11 @@ public class PictureSystem extends IteratingSystem {
 
     }
 
-    private boolean isTouched(Entity entity, PolygonComponent polygonComponent) {
+    private boolean isTouched(Entity entity) {
 
         if(Gdx.input.justTouched()) {
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
+            PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
             dimensionsComponent.setPolygon(polygonComponent);
             Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
             TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);

@@ -13,8 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
+import com.uwsoft.editor.renderer.components.PolygonComponent;
 import com.uwsoft.editor.renderer.components.ZIndexComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
+import com.uwsoft.editor.renderer.utils.CustomVariables;
 import com.uwsoft.editor.renderer.utils.TransformMathUtils;
 
 import uk.co.adeveloperabroad.MessageType;
@@ -33,40 +35,48 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
     protected void processEntity(Entity entity, float deltaTime) {
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
         MainItemComponent mainItemComponent = ComponentRetriever.get(entity, MainItemComponent.class);
-        // getCustomVariables doesn't seem to be in the code so getting directly from main item;
+        CustomVariables customVariables = new CustomVariables();
+        customVariables.loadFromString(mainItemComponent.customVars);
+        int legNumber = customVariables.getIntegerVariable("legNumber");
 
         if(nodeComponent == null) return;
 
         if(isTouched(entity)) {
 
-            if (mainItemComponent.customVars.equals("legNumber:1") && nextLeg == 1) {
+            if (legNumber == 1 && nextLeg == 1) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg1);
                 nextLeg = 2;
             }
 
-            if (mainItemComponent.customVars.equals("legNumber:2") && nextLeg == 2) {
+            if (legNumber == 2 && nextLeg == 2) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg2);
                 nextLeg = 3;
             }
 
-            if (mainItemComponent.customVars.equals("legNumber:3") && nextLeg == 3) {
+            if (legNumber == 3 && nextLeg == 3) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg3);
                 nextLeg = 1;
             }
 
         } else if(isKeyDown()) {
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.A) && nextLeg == 1) {
+            if ((Gdx.input.isKeyJustPressed(Input.Keys.A) ||
+                    Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
+                    && nextLeg == 1) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg1);
                 nextLeg = 2;
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.S) && nextLeg == 2) {
+            if ((Gdx.input.isKeyJustPressed(Input.Keys.S) ||
+                    Gdx.input.isKeyJustPressed(Input.Keys.UP))
+                    && nextLeg == 2) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg2);
                 nextLeg = 3;
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.D) && nextLeg == 3) {
+            if ((Gdx.input.isKeyJustPressed(Input.Keys.D) ||
+                    Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))
+                    && nextLeg == 3) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg3);
                 nextLeg = 1;
             }
@@ -144,6 +154,8 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
 
         if(Gdx.input.justTouched()) {
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
+            PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
+            dimensionsComponent.setPolygon(polygonComponent);
             Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
             TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
 
@@ -156,25 +168,14 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
 
     private Boolean isKeyDown() {
 
-        // no cheating :)
-        if (Gdx.input.isKeyJustPressed(Input.Keys.A)
-                && Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            return false;
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)
-                && Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            return false;
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.D)
-                && Gdx.input.isKeyJustPressed(Input.Keys.A)) {
-            return false;
-        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.A)
                || Gdx.input.isKeyJustPressed(Input.Keys.S)
                 || Gdx.input.isKeyJustPressed(Input.Keys.D)
+                || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)
+                || Gdx.input.isKeyJustPressed(Input.Keys.UP)
+                || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)
+
                 ){
             return true;
         }
