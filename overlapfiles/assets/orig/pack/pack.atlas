@@ -6,49 +6,49 @@ filter: Linear,Linear
 repeat: none
 alienwalk2.0000
   rotate: false
-  xy: 2, 148
+  xy: 269, 370
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 atomLarge
   rotate: false
-  xy: 660, 982
+  xy: 1265, 1260
   size: 138, 61
   orig: 138, 61
   offset: 0, 0
   index: -1
 auto
   rotate: false
-  xy: 214, 381
+  xy: 1032, 1076
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 1045
+  xy: 2, 1054
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 bluefoot
   rotate: false
-  xy: 1926, 1833
+  xy: 1834, 1585
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 bluefootTrans
   rotate: false
-  xy: 660, 900
+  xy: 1477, 1360
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 button1
   rotate: false
-  xy: 1926, 1915
+  xy: 1926, 1924
   size: 91, 92
   split: 5, 2, 5, 2
   pad: 5, 1, 5, 3
@@ -57,7 +57,7 @@ button1
   index: -1
 button2
   rotate: false
-  xy: 1493, 1433
+  xy: 1477, 1442
   size: 91, 92
   split: 5, 2, 5, 3
   orig: 91, 92
@@ -65,7 +65,7 @@ button2
   index: -1
 button3
   rotate: false
-  xy: 548, 422
+  xy: 1405, 1264
   size: 59, 57
   split: 3, 4, 4, 0
   pad: 4, 4, 4, 1
@@ -74,140 +74,168 @@ button3
   index: -1
 chimpanzee
   rotate: false
-  xy: 1032, 1067
+  xy: 471, 390
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
+fire
+  rotate: false
+  xy: 2, 318
+  size: 265, 252
+  orig: 265, 252
+  offset: 0, 0
+  index: -1
 greenFoot
   rotate: false
-  xy: 1493, 1351
+  xy: 1926, 1760
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 greenFootTrans
   rotate: false
-  xy: 1834, 1658
+  xy: 1834, 1667
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 ground
   rotate: false
-  xy: 2, 1527
+  xy: 2, 1536
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 head001
   rotate: false
-  xy: 2, 2
+  xy: 812, 916
   size: 175, 144
   orig: 175, 144
   offset: 0, 0
   index: -1
 largelens
   rotate: false
-  xy: 1606, 1544
+  xy: 2, 122
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
+legs
+  rotate: false
+  xy: 660, 627
+  size: 131, 144
+  orig: 131, 144
+  offset: 0, 0
+  index: -1
 lens
   rotate: false
-  xy: 2, 350
+  xy: 1265, 1323
   size: 210, 211
   orig: 210, 211
   offset: 0, 0
   index: -1
 pinkFoot
   rotate: false
-  xy: 548, 481
+  xy: 1926, 1842
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 pinkFootTrans
   rotate: false
-  xy: 1834, 1576
+  xy: 833, 834
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+playagain
+  rotate: false
+  xy: 2, 2
+  size: 227, 118
+  orig: 227, 118
+  offset: 0, 0
+  index: -1
 record001
   rotate: false
-  xy: 804, 1249
+  xy: 804, 1258
   size: 459, 276
   orig: 459, 276
   offset: 0, 0
   index: -1
 rightLens
   rotate: false
-  xy: 1265, 1331
+  xy: 1606, 1553
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
 space
   rotate: false
-  xy: 804, 1527
+  xy: 804, 1536
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
+speech-bubble
+  rotate: false
+  xy: 660, 773
+  size: 171, 127
+  orig: 171, 127
+  offset: 0, 0
+  index: -1
 speedLine
   rotate: false
-  xy: 1606, 1527
+  xy: 1606, 1536
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 speedLineLarge
   rotate: false
-  xy: 1214, 1206
+  xy: 1214, 1215
   size: 18, 41
   orig: 18, 41
   offset: 0, 0
   index: -1
 stylus
   rotate: false
-  xy: 1265, 1300
+  xy: 269, 339
   size: 152, 29
   orig: 152, 29
   offset: 0, 0
   index: -1
 telescope
   rotate: false
-  xy: 660, 828
+  xy: 833, 762
   size: 78, 70
   orig: 78, 70
   offset: 0, 0
   index: -1
 voyagerComplete
   rotate: false
-  xy: 2, 563
+  xy: 2, 572
   size: 656, 480
   orig: 656, 480
   offset: 0, 0
   index: -1
 voyagerDestroyed
   rotate: false
-  xy: 1606, 1740
+  xy: 1606, 1749
   size: 318, 267
   orig: 318, 267
   offset: 0, 0
   index: -1
 walk3.0000
   rotate: false
-  xy: 396, 411
+  xy: 660, 902
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 wrongLens
   rotate: false
-  xy: 804, 1053
+  xy: 804, 1062
   size: 226, 194
   orig: 226, 194
   offset: 0, 0

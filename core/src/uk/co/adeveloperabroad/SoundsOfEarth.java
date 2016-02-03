@@ -74,20 +74,21 @@ public class SoundsOfEarth extends Game implements Telegraph{
             splashScreen.dispose();
             splashScreen = null;
             isLoaded = true;
-            setScreen(menuScreen);
+//            setScreen(menuScreen);
+            setScreen(gameScreen);
         }
     }
 
     private void instantiateScreens() {
         menuScreen = new MenuScreen(viewport, sceneLoader);
-
+        gameScreen = new GameScreen(viewport, sceneLoader, levelManager);
     }
 
     @Override
     public void dispose() {
-        rm.dispose();
-        gameScreen.dispose();
-        levelManager.dispose();
+//        rm.dispose();
+//        gameScreen.dispose();
+//        levelManager.dispose();
     }
 
 
