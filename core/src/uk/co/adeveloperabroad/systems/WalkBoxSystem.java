@@ -3,7 +3,6 @@ package uk.co.adeveloperabroad.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -19,46 +18,54 @@ import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.CustomVariables;
 import com.uwsoft.editor.renderer.utils.TransformMathUtils;
 
-import uk.co.adeveloperabroad.MessageType;
+import uk.co.adeveloperabroad.utility.MessageType;
 import uk.co.adeveloperabroad.components.WalkBoxComponent;
 
 public class WalkBoxSystem extends IteratingSystem implements Telegraph {
 
     public int nextLeg = 1;
+    private CustomVariables customVariables;
+    private Vector2 localCoordinates;
+    private String legNumber;
 
     public WalkBoxSystem() {
         super(Family.all(WalkBoxComponent.class).get());
         MessageManager.getInstance().addListener(this, MessageType.startingPositions);
+        customVariables = new CustomVariables();
+        localCoordinates = new Vector2(1,1);
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
         MainItemComponent mainItemComponent = ComponentRetriever.get(entity, MainItemComponent.class);
-        CustomVariables customVariables = new CustomVariables();
-        customVariables.loadFromString(mainItemComponent.customVars);
-        int legNumber = customVariables.getIntegerVariable("legNumber");
+//        customVariables.loadFromString(mainItemComponent.customVars);
+// ^ this seems to be causing a memory leak and I cannot work out why. ^
+//        legNumber = customVariables.getIntegerVariable("legNumber");
+
 
         if(nodeComponent == null) return;
 
         if(isTouched(entity)) {
+            Gdx.app.log("foot", "touched");
 
-            if (legNumber == 1 && nextLeg == 1) {
+            if (mainItemComponent.customVars.equals("legNumber:1") && nextLeg == 1) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg1);
                 nextLeg = 2;
             }
 
-            if (legNumber == 2 && nextLeg == 2) {
+            if (mainItemComponent.customVars.equals("legNumber:2") && nextLeg == 2) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg2);
                 nextLeg = 3;
             }
 
-            if (legNumber == 3 && nextLeg == 3) {
+            if (mainItemComponent.customVars.equals("legNumber:3") && nextLeg == 3) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg3);
                 nextLeg = 1;
             }
 
         } else if(isKeyDown()) {
+            Gdx.app.log("foot", "key down");
 
             if ((Gdx.input.isKeyJustPressed(Input.Keys.A) ||
                     Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
@@ -153,11 +160,11 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
     private boolean isTouched(Entity entity) {
 
         if(Gdx.input.justTouched()) {
+
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
             PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
             dimensionsComponent.setPolygon(polygonComponent);
-            Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-            TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
+            TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates.set(Gdx.input.getX(), Gdx.input.getY()));
 
             if(dimensionsComponent.hit(localCoordinates.x, localCoordinates.y)) {
                 return true;

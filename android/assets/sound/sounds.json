@@ -1,0 +1,91 @@
+[
+  {
+    "name": "auto",
+    "location": "sound/auto.mp3"
+  },
+
+  {
+    "name": "child",
+    "location": "sound/child.mp3"
+  },
+
+  {
+    "name": "chimp",
+    "location": "sound/Chimpanzee.mp3"
+  },
+
+  {
+    "name": "cricket",
+    "location": "sound/cricket.mp3"
+  },
+
+  {
+    "name": "dog",
+    "location": "sound/dog.mp3"
+  },
+
+  {
+    "name": "fire",
+    "location": "sound/fire.mp3"
+  },
+
+  {
+    "name": "footsteps",
+    "location": "sound/footsteps.mp3"
+  },
+
+  {
+    "name": "horse",
+    "location": "sound/horse.mp3"
+  },
+
+  {
+    "name": "hyena",
+    "location": "sound/hyena.mp3"
+  },
+
+  {
+    "name": "morse",
+    "location": "sound/morse.mp3"
+  },
+
+  {
+    "name": "mud",
+    "location": "sound/mud.mp3"
+  },
+
+  {
+    "name": "pulsar",
+    "location": "sound/pulsar.mp3"
+  },
+
+  {
+    "name": "sawing",
+    "location": "sound/sawing.mp3"
+  },
+
+  {
+    "name": "sheep",
+    "location": "sound/sheep.mp3"
+  },
+
+  {
+    "name": "tools",
+    "location": "sound/tools.mp3"
+  },
+
+  {
+    "name": "tractor",
+    "location": "sound/tractor.mp3"
+  },
+
+  {
+    "name": "train",
+    "location": "sound/train.mp3"
+  },
+
+  {
+    "name": "wind",
+    "location": "sound/wind.mp3"
+  }
+]

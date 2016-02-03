@@ -3,7 +3,6 @@ package uk.co.adeveloperabroad.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -13,12 +12,11 @@ import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.PolygonComponent;
-import com.uwsoft.editor.renderer.components.ViewPortComponent;
 import com.uwsoft.editor.renderer.components.ZIndexComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.TransformMathUtils;
 
-import uk.co.adeveloperabroad.MessageType;
+import uk.co.adeveloperabroad.utility.MessageType;
 import uk.co.adeveloperabroad.components.PictureComponent;
 
 // borrowing heavily from buttonComponent (thanks azakhary)

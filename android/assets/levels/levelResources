@@ -4,7 +4,7 @@
       "pictureOne":"a",
       "pictureTwo":"aa",
       "pictureThree":"aaa",
-      "sound":"sound/Chimpanzee.mp3",
+      "sound":"chimp",
       "correctAnswer":"pictureOne"
   },
   {
@@ -12,7 +12,7 @@
     "pictureOne":"bb",
     "pictureTwo":"b",
     "pictureThree":"bbb",
-    "sound":"sound/Auto.mp3",
+    "sound":"auto",
     "correctAnswer":"pictureTwo"
   },
   {
@@ -20,7 +20,7 @@
     "pictureOne":"ccc",
     "pictureTwo":"c",
     "pictureThree":"cc",
-    "sound":"sound/dog.mp3",
+    "sound":"dog",
     "correctAnswer":"pictureTwo"
   },
   {
@@ -28,7 +28,7 @@
     "pictureOne":"ddd",
     "pictureTwo":"dd",
     "pictureThree":"d",
-    "sound":"sound/Train.mp3",
+    "sound":"train",
     "correctAnswer":"pictureThree"
   },
   {
@@ -36,7 +36,7 @@
     "pictureOne":"e",
     "pictureTwo":"eee",
     "pictureThree":"ee",
-    "sound":"sound/Hyena.mp3",
+    "sound":"hyena",
     "correctAnswer":"pictureOne"
   },
   {
@@ -44,7 +44,7 @@
     "pictureOne":"f",
     "pictureTwo":"fff",
     "pictureThree":"ff",
-    "sound":"sound/Tractor.mp3",
+    "sound":"tractor",
     "correctAnswer":"pictureOne"
   },
   {
@@ -52,7 +52,7 @@
     "pictureOne":"ggg",
     "pictureTwo":"gg",
     "pictureThree":"g",
-    "sound":"sound/MorseCode.mp3",
+    "sound":"morse",
     "correctAnswer":"pictureThree"
   },
   {
@@ -60,7 +60,7 @@
     "pictureOne":"h",
     "pictureTwo":"hh",
     "pictureThree":"hhh",
-    "sound":"sound/HerdingSheep.mp3",
+    "sound":"sheep",
     "correctAnswer":"pictureOne"
   }
 ,
@@ -69,7 +69,7 @@
     "pictureOne":"ii",
     "pictureTwo":"iii",
     "pictureThree":"i",
-    "sound":"sound/Sawing.mp3",
+    "sound":"sawing",
     "correctAnswer":"pictureThree"
   }
 ,
@@ -78,7 +78,7 @@
     "pictureOne":"jj",
     "pictureTwo":"j",
     "pictureThree":"jjj",
-    "sound":"sound/cricket.mp3",
+    "sound":"cricket",
     "correctAnswer":"pictureTwo"
   }
 ,
@@ -87,7 +87,7 @@
     "pictureOne":"kkk",
     "pictureTwo":"k",
     "pictureThree":"kk",
-    "sound":"sound/horse.mp3",
+    "sound":"horse",
     "correctAnswer":"pictureTwo"
   }
 ,
@@ -96,7 +96,7 @@
     "pictureOne":"l",
     "pictureTwo":"lll",
     "pictureThree":"ll",
-    "sound":"sound/Child.mp3",
+    "sound":"child",
     "correctAnswer":"pictureOne"
   }
 ,
@@ -105,7 +105,7 @@
     "pictureOne":"mmm",
     "pictureTwo":"mm",
     "pictureThree":"m",
-    "sound":"sound/Wind.mp3",
+    "sound":"wind",
     "correctAnswer":"pictureThree"
   }
 ,
@@ -114,7 +114,7 @@
     "pictureOne":"n",
     "pictureTwo":"nn",
     "pictureThree":"nnn",
-    "sound":"sound/mud.mp3",
+    "sound":"mud",
     "correctAnswer":"pictureOne"
   }
 ,
@@ -123,7 +123,7 @@
     "pictureOne":"ooo",
     "pictureTwo":"oo",
     "pictureThree":"o",
-    "sound":"sound/Footsteps.mp3",
+    "sound":"footsteps",
     "correctAnswer":"pictureThree"
   }
 ,
@@ -132,7 +132,7 @@
     "pictureOne":"p",
     "pictureTwo":"pp",
     "pictureThree":"ppp",
-    "sound":"sound/fire.mp3",
+    "sound":"fire",
     "correctAnswer":"pictureOne"
   }
 ,
@@ -141,7 +141,7 @@
     "pictureOne":"qq",
     "pictureTwo":"q",
     "pictureThree":"qqq",
-    "sound":"sound/tools.mp3",
+    "sound":"tools",
     "correctAnswer":"pictureTwo"
   },
   {
@@ -149,7 +149,7 @@
     "pictureOne":"rr",
     "pictureTwo":"rrr",
     "pictureThree":"r",
-    "sound":"sound/pulsar.mp3",
+    "sound":"pulsar",
     "correctAnswer":"pictureThree"
   }
 ]
