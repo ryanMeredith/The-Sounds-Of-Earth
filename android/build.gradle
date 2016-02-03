@@ -111,5 +111,4 @@ idea {
     }
 }
 dependencies {
-    compile files('libs/overlap2d-runtime-libgdx-0.1.2.jar')
 }

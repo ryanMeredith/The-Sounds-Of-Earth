@@ -12,8 +12,6 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
@@ -23,7 +21,6 @@ import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
 import uk.co.adeveloperabroad.utility.BinaryDisplay;
-import uk.co.adeveloperabroad.levels.Level;
 import uk.co.adeveloperabroad.levels.LevelManager;
 import uk.co.adeveloperabroad.utility.MessageType;
 import uk.co.adeveloperabroad.components.PictureComponent;
@@ -68,9 +65,10 @@ public class GameScreen implements Screen, Telegraph {
     private PictureSystem pictureSystem = new PictureSystem();
     private WalkBoxSystem walkBoxSystem = new WalkBoxSystem();
 
-    public GameScreen(Viewport viewport, SceneLoader sceneLoader) {
+    public GameScreen(Viewport viewport, SceneLoader sceneLoader, LevelManager levelManager) {
         this.viewport = viewport;
         this.sceneLoader = sceneLoader;
+        this.levelManager = levelManager;
     }
 
     @Override
@@ -78,6 +76,8 @@ public class GameScreen implements Screen, Telegraph {
         sceneLoader.loadScene("MainScene", viewport);
         GameResourceManager rm = (GameResourceManager) sceneLoader.getRm();
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
+        levelManager.setRm(rm);
+        levelManager.setRoot(root);
 
         Entity scoreEntity = root.getChild("score").getEntity();
         scoreLabel = ComponentRetriever.get(scoreEntity, LabelComponent.class);
@@ -117,10 +117,6 @@ public class GameScreen implements Screen, Telegraph {
         root.getChild("speedIndicator").addScript(new SpeedIndicatorController());
 
         addMessageListeners();
-
-        Json json = new Json();
-        Array<Level> levels = json.fromJson(Array.class, Level.class, Gdx.files.internal("levels/levelResources"));
-        levelManager = new LevelManager(levels, root, sceneLoader.getRm());
 
         playLevel(1);
     }
@@ -284,7 +280,7 @@ public class GameScreen implements Screen, Telegraph {
 
     @Override
     public void dispose() {
-        levelManager.dispose();
+
     }
 
 

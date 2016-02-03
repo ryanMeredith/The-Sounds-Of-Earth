@@ -1,152 +1,213 @@
 
 pack.png
-size: 2048,512
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 alienwalk2.0000
   rotate: false
-  xy: 1705, 282
+  xy: 2, 148
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 atomLarge
   rotate: false
-  xy: 1907, 421
+  xy: 660, 982
   size: 138, 61
   orig: 138, 61
   offset: 0, 0
   index: -1
 auto
   rotate: false
-  xy: 1265, 89
+  xy: 214, 381
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 2
+  xy: 2, 1045
   size: 800, 480
   orig: 800, 480
   offset: 0, 0
   index: -1
 bluefoot
   rotate: false
-  xy: 1442, 7
+  xy: 1926, 1833
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 bluefootTrans
   rotate: false
-  xy: 1351, 7
+  xy: 660, 900
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+button1
+  rotate: false
+  xy: 1926, 1915
+  size: 91, 92
+  split: 5, 2, 5, 2
+  pad: 5, 1, 5, 3
+  orig: 91, 92
+  offset: 0, 0
+  index: -1
+button2
+  rotate: false
+  xy: 1493, 1433
+  size: 91, 92
+  split: 5, 2, 5, 3
+  orig: 91, 92
+  offset: 0, 0
+  index: -1
+button3
+  rotate: false
+  xy: 548, 422
+  size: 59, 57
+  split: 3, 4, 4, 0
+  pad: 4, 4, 4, 1
+  orig: 59, 57
+  offset: 0, 0
+  index: -1
 chimpanzee
   rotate: false
-  xy: 1447, 89
+  xy: 1032, 1067
   size: 180, 180
   orig: 180, 180
   offset: 0, 0
   index: -1
 greenFoot
   rotate: false
-  xy: 1533, 7
+  xy: 1493, 1351
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 greenFootTrans
   rotate: false
-  xy: 1907, 339
+  xy: 1834, 1658
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
+ground
+  rotate: false
+  xy: 2, 1527
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
 head001
   rotate: false
-  xy: 1629, 136
+  xy: 2, 2
   size: 175, 144
   orig: 175, 144
   offset: 0, 0
   index: -1
 largelens
   rotate: false
-  xy: 1032, 10
+  xy: 1606, 1544
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
 lens
   rotate: false
-  xy: 1265, 271
+  xy: 2, 350
   size: 210, 211
   orig: 210, 211
   offset: 0, 0
   index: -1
 pinkFoot
   rotate: false
-  xy: 1260, 7
+  xy: 548, 481
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 pinkFootTrans
   rotate: false
-  xy: 1629, 23
+  xy: 1834, 1576
   size: 89, 80
   orig: 89, 80
   offset: 0, 0
   index: -1
 record001
   rotate: false
-  xy: 804, 206
+  xy: 804, 1249
   size: 459, 276
   orig: 459, 276
   offset: 0, 0
   index: -1
 rightLens
   rotate: false
-  xy: 1477, 288
+  xy: 1265, 1331
   size: 226, 194
   orig: 226, 194
   offset: 0, 0
   index: -1
+space
+  rotate: false
+  xy: 804, 1527
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
 speedLine
   rotate: false
-  xy: 1477, 271
+  xy: 1606, 1527
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 speedLineLarge
   rotate: false
-  xy: 1907, 296
+  xy: 1214, 1206
   size: 18, 41
   orig: 18, 41
   offset: 0, 0
   index: -1
 stylus
   rotate: false
-  xy: 1629, 105
+  xy: 1265, 1300
   size: 152, 29
   orig: 152, 29
   offset: 0, 0
   index: -1
+telescope
+  rotate: false
+  xy: 660, 828
+  size: 78, 70
+  orig: 78, 70
+  offset: 0, 0
+  index: -1
+voyagerComplete
+  rotate: false
+  xy: 2, 563
+  size: 656, 480
+  orig: 656, 480
+  offset: 0, 0
+  index: -1
+voyagerDestroyed
+  rotate: false
+  xy: 1606, 1740
+  size: 318, 267
+  orig: 318, 267
+  offset: 0, 0
+  index: -1
 walk3.0000
   rotate: false
-  xy: 1806, 130
+  xy: 396, 411
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 wrongLens
   rotate: false
-  xy: 804, 10
+  xy: 804, 1053
   size: 226, 194
   orig: 226, 194
   offset: 0, 0

@@ -20,6 +20,23 @@ public class LevelManager implements Disposable{
 
     private Array<Level> levels;
     private ItemWrapper root;
+
+    public GameResourceManager getRm() {
+        return rm;
+    }
+
+    public void setRm(GameResourceManager rm) {
+        this.rm = rm;
+    }
+
+    public ItemWrapper getRoot() {
+        return root;
+    }
+
+    public void setRoot(ItemWrapper root) {
+        this.root = root;
+    }
+
     private GameResourceManager rm;
 
     public Level currentLevel;
@@ -28,12 +45,14 @@ public class LevelManager implements Disposable{
 
     public int finalLevelNumber;
 
-    public LevelManager(Array levels, ItemWrapper root, IResourceRetriever rm) {
+    public LevelManager(Array levels) {
         this.levels = levels;
-        this.root = root;
-        this.rm = (GameResourceManager) rm;
+//        this.root = root;
+//        this.rm = (GameResourceManager) rm;
         setFinalLevelNumber();
     }
+
+
 
     private void setFinalLevelNumber() {
         for (Level level : levels) {
@@ -86,7 +105,7 @@ public class LevelManager implements Disposable{
 
     @Override
     public void dispose() {
-        mysterySound.dispose();
+
     }
 }
 
