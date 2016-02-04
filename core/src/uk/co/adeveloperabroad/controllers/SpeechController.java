@@ -41,7 +41,7 @@ public class SpeechController implements IScript, Telegraph {
         mainItemComponent.visible = false;
 
         NodeComponent nodeComponent = entity.getComponent(NodeComponent.class);
-        labelComponent = nodeComponent.children.get(1).getComponent(LabelComponent.class);
+        labelComponent = nodeComponent.children.get(0).getComponent(LabelComponent.class);
         labelComponent.setWrap(true);
         setWinningMessages();
         setLosingMessages();
@@ -95,11 +95,17 @@ public class SpeechController implements IScript, Telegraph {
     public void act(float delta) {
 
         time += delta;
-        if(currentPosition <= messageLength  && time > delay) {
+        if(mainItemComponent.visible &&
+                currentPosition <= messageLength  && time > delay) {
             labelComponent.setText(message.substring(0, currentPosition));
             currentPosition ++;
             time = 0;
+
+            if (currentPosition > messageLength) {
+                MessageManager.getInstance().dispatchMessage(2f, this, MessageType.startingPositions);
+            }
         }
+
     }
 
     @Override

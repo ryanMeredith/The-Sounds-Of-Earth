@@ -21,6 +21,9 @@ public class LevelManager implements Disposable{
 
     private GameResourceManager rm;
 
+    private int previousLevelNumber;
+    private int currentLevelNumber;
+
     public Level currentLevel;
     public Sound mysterySound;
 
@@ -42,14 +45,8 @@ public class LevelManager implements Disposable{
     }
 
     public void preLoadSound(int levelNumber) {
-
-        if (levelNumber > finalLevelNumber) {
-            levelNumber = 1;
-        }
         rm.loadSound(getSoundNameForLevel(levelNumber));
     }
-
-
 
     private void setFinalLevelNumber() {
         for (Level level : levels) {
@@ -61,8 +58,11 @@ public class LevelManager implements Disposable{
 
     public void loadLevel(int levelNumber) {
 
-        preLoadSound(levelNumber + 1);
-        unLoadOldSound(levelNumber);
+        previousLevelNumber = currentLevelNumber;
+        currentLevelNumber = levelNumber;
+
+        preLoadSound(getNextLevelNumber());
+        unLoadOldSound();
 
         for (Level level : levels) {
             if (level.levelNumber == levelNumber) {
@@ -73,20 +73,18 @@ public class LevelManager implements Disposable{
         loadPictures();
     }
 
-    private void unLoadOldSound(int levelNumber) {
+    private void unLoadOldSound() {
 
         if (mysterySound != null) {
             mysterySound.stop();
             mysterySound.dispose();
             mysterySound = null;
-            rm.removeSound(getSoundNameForLevel(levelNumber - 1));
+            rm.removeSound(getSoundNameForLevel(previousLevelNumber));
         }
 
     }
 
     public void setSound() {
-
-
 
         mysterySound = rm.soundManager.getSound(currentLevel.sound);
 
@@ -114,6 +112,17 @@ public class LevelManager implements Disposable{
         // tell it if it is the correct answer.
         PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
         pictureComponent.isCorrectAnswer = pictureIdentifier.equals(correctAnswer);
+    }
+
+    public Integer getNextLevelNumber() {
+
+        int nextLevelNumber = 0;
+        if (currentLevelNumber == finalLevelNumber) {
+            nextLevelNumber = 1;
+        } else {
+            nextLevelNumber = currentLevelNumber + 1;
+        }
+        return nextLevelNumber;
     }
 
     @Override

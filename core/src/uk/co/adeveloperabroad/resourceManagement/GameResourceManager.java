@@ -18,7 +18,7 @@ public class GameResourceManager extends AsynchronousResourceManager {
 
        loadAnimationAtlasPack("spriteAnimations/walkPacked/walk.atlas");
        loadAnimationAtlasPack("spriteAnimations/headAnimPacked/head.atlas");
-       loadAnimationAtlasPack("spriteAnimations/recordPacked/record.atlas");
+       loadAnimationAtlasPack("spriteAnimations/recordPacked/smallRecord.atlas");
        // get all VO data
        initAllSceneData();
        // get image pack

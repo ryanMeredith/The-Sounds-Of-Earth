@@ -1,0 +1,66 @@
+AGGREGATED OVER LAST 24 HOURS:
+Per-Package Stats:
+  * uk.co.adeveloperabroad.android / u0a167:
+      * uk.co.adeveloperabroad.android / u0a167:
+               TOTAL: 0.64% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+                 Top: 0.64% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+          (Last Act): 0.00%
+            (Cached): 0.00%
+
+Summary:
+  * uk.co.adeveloperabroad.android / u0a167:
+           TOTAL: 0.64% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+             Top: 0.64% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+      (Last Act): 0.00%
+        (Cached): 0.00%
+
+Run time Stats:
+  SOff/Norm: +15h35m34s546ms
+  SOn /Norm: +1h0m49s991ms
+      TOTAL: +16h36m24s537ms
+
+          Start time: 2016-02-03 10:12:42
+  Total elapsed time: +1d2h46m35s515ms (partial) libdvm.so chromeview
+
+AGGREGATED OVER LAST 3 HOURS:
+Per-Package Stats:
+  * uk.co.adeveloperabroad.android / u0a167:
+      * uk.co.adeveloperabroad.android / u0a167:
+               TOTAL: 2.6% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+                 Top: 2.6% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+          (Last Act): 0.00%
+            (Cached): 0.00%
+
+Summary:
+  * uk.co.adeveloperabroad.android / u0a167:
+           TOTAL: 2.6% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+             Top: 2.6% (15MB-15MB-15MB/14MB-14MB-15MB over 4)
+      (Last Act): 0.00%
+        (Cached): 0.00%
+
+Run time Stats:
+  SOff/Norm: +3h52m44s317ms
+  SOn /Norm: +10m12s466ms
+      TOTAL: +4h2m56s783ms
+
+          Start time: 2016-02-04 08:56:00
+  Total elapsed time: +4h3m17s995ms (partial) libdvm.so chromeview
+
+CURRENT STATS:
+Per-Package Stats:
+  * uk.co.adeveloperabroad.android / u0a167:
+      * uk.co.adeveloperabroad.android / u0a167:
+               TOTAL: 67% (15MB-15MB-15MB/14MB-14MB-14MB over 2)
+                 Top: 67% (15MB-15MB-15MB/14MB-14MB-14MB over 2)
+
+Summary:
+  * uk.co.adeveloperabroad.android / u0a167:
+           TOTAL: 67% (15MB-15MB-15MB/14MB-14MB-14MB over 2)
+             Top: 67% (15MB-15MB-15MB/14MB-14MB-14MB over 2)
+
+Run time Stats:
+  SOn /Norm: +5m44s845ms (running)
+      TOTAL: +5m44s845ms
+
+          Start time: 2016-02-04 12:53:50
+  Total elapsed time: +6m6s568ms (partial) libdvm.so chromeview

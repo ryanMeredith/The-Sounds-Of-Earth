@@ -22,8 +22,8 @@ public class RecordController implements IScript , Telegraph {
 
     private Array<TextureAtlas.AtlasRegion> recordAtlasRegions;
     private Animation labelAnimation;
-    private static float LABEL_FPS = 1.0f / 15.0f;
-    private float labelAnimationTime;
+    private static float LABEL_FPS = 1.0f / 8.0f;
+    private float labelAnimationTime = 0;
 
     private RecordSpeedComponent recordSpeedComponent;
     private TextureRegionComponent textureRegionComponent;

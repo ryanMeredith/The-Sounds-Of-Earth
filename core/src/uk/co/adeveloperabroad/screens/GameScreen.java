@@ -103,7 +103,7 @@ public class GameScreen implements Screen, Telegraph {
 
         recordLabel = root.getChild("record").getEntity().add(new RecordSpeedComponent());
         root.getChild("record").addScript(new RecordController(
-                rm.assetManager.get("spriteAnimations/recordPacked/record.atlas",
+                rm.assetManager.get("spriteAnimations/recordPacked/smallRecord.atlas",
                         TextureAtlas.class)));
 
         root.getChild("speech").addScript(new SpeechController());
@@ -168,7 +168,6 @@ public class GameScreen implements Screen, Telegraph {
 
     protected void startPositions() {
         recordSpeed = 0;
-        MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.startingPositions);
     }
 
     protected void loadMysterySound() {
@@ -186,22 +185,6 @@ public class GameScreen implements Screen, Telegraph {
             pictureEntity.remove(PictureComponent.class);
         }
 
-
-        Timer.schedule(new Timer.Task() {
-
-            @Override
-            public void run() {
-
-                if (levelManager.finalLevelNumber >= levelManager.currentLevel.levelNumber + 1) {
-                    playLevel(levelManager.currentLevel.levelNumber + 1);
-                } else {
-                    MessageManager.getInstance().dispatchMessage(0, null, MessageType.gameOver);
-                }
-                unlockButtons();
-            }
-        }, 4);
-
-
     }
 
     private void addMessageListeners() {
@@ -209,6 +192,7 @@ public class GameScreen implements Screen, Telegraph {
         MessageManager.getInstance().addListener(this, MessageType.lose);
         MessageManager.getInstance().addListener(this, MessageType.moreSpeed);
         MessageManager.getInstance().addListener(this, MessageType.restart);
+        MessageManager.getInstance().addListener(this, MessageType.startingPositions);
     }
 
     @Override
@@ -232,12 +216,18 @@ public class GameScreen implements Screen, Telegraph {
                 score = 0;
                 playLevel(1);
                 break;
+            case MessageType.startingPositions:
+                if (levelManager.finalLevelNumber >= levelManager.currentLevel.levelNumber + 1) {
+                    playLevel(levelManager.currentLevel.levelNumber + 1);
+                } else {
+                    MessageManager.getInstance().dispatchMessage(0, null, MessageType.gameOver);
+                }
+                unlockButtons();
+                break;
         }
         return true;
     }
 
-
-    // dirty hack as I keep getting a double tap when loading new levels
     protected void unlockButtons() {
         ImmutableArray<Entity> pictureEntities =
                 sceneLoader.getEngine().getEntitiesFor(Family.all(PictureComponent.class).get());

@@ -131,68 +131,63 @@ walk.0020
   index: -1
 walk.0002
   rotate: false
-  xy: 577, 1
+  xy: 961, 622
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0023
   rotate: false
-  xy: 769, 208
+  xy: 577, 1
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0024
   rotate: false
-  xy: 769, 1
+  xy: 769, 208
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
-
-walk2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
 walk.0016
   rotate: false
-  xy: 1, 208
+  xy: 961, 415
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0005
   rotate: false
-  xy: 1, 1
+  xy: 1153, 622
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0017
   rotate: false
-  xy: 193, 208
+  xy: 769, 1
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0025
   rotate: false
-  xy: 193, 1
+  xy: 961, 208
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0013
   rotate: false
-  xy: 385, 208
+  xy: 1153, 415
   size: 190, 205
   orig: 190, 205
   offset: 0, 0
   index: -1
 walk.0004
   rotate: false
-  xy: 385, 1
+  xy: 1345, 622
   size: 190, 205
   orig: 190, 205
   offset: 0, 0

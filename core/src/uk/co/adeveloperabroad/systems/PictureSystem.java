@@ -22,11 +22,11 @@ import uk.co.adeveloperabroad.components.PictureComponent;
 // borrowing heavily from buttonComponent (thanks azakhary)
 public class PictureSystem extends IteratingSystem {
 
-
+    private Vector2 localCoordinates;
 
     public PictureSystem() {
         super(Family.all(PictureComponent.class).get());
-
+        localCoordinates = new Vector2(0,0);
     }
 
     @Override
@@ -77,10 +77,14 @@ public class PictureSystem extends IteratingSystem {
 
         if(Gdx.input.justTouched()) {
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
-            PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
-            dimensionsComponent.setPolygon(polygonComponent);
-            Vector2 localCoordinates  = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-            TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
+
+            // if polygon component not created for this entity set.
+            if (dimensionsComponent.polygon == null) {
+                PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
+                dimensionsComponent.setPolygon(polygonComponent);
+            }
+
+            TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates.set(Gdx.input.getX(), Gdx.input.getY()));
 
             if(dimensionsComponent.hit(localCoordinates.x, localCoordinates.y)) {
                 return true;

@@ -49,7 +49,7 @@ public class AlienHeadController implements IScript, Telegraph{
     @Override
     public void act(float delta) {
 
-        if (runAnimation ) {
+        if (runAnimation) {
             animationTimeAlien  = animationTimeAlien + Gdx.graphics.getDeltaTime();
             textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
         }

@@ -47,7 +47,7 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
         if(nodeComponent == null) return;
 
         if(isTouched(entity)) {
-            Gdx.app.log("foot", "touched");
+//            Gdx.app.log("foot", "touched");
 
             if (mainItemComponent.customVars.equals("legNumber:1") && nextLeg == 1) {
                 MessageManager.getInstance().dispatchMessage(0.0f, null, MessageType.leg1);
@@ -65,7 +65,7 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
             }
 
         } else if(isKeyDown()) {
-            Gdx.app.log("foot", "key down");
+//            Gdx.app.log("foot", "key down");
 
             if ((Gdx.input.isKeyJustPressed(Input.Keys.A) ||
                     Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
@@ -162,8 +162,13 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
         if(Gdx.input.justTouched()) {
 
             DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
-            PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
-            dimensionsComponent.setPolygon(polygonComponent);
+
+            // if polygon component not created for this entity set.
+            if (dimensionsComponent.polygon == null) {
+                PolygonComponent polygonComponent = ComponentRetriever.get(entity, PolygonComponent.class);
+                dimensionsComponent.setPolygon(polygonComponent);
+            }
+
             TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates.set(Gdx.input.getX(), Gdx.input.getY()));
 
             if(dimensionsComponent.hit(localCoordinates.x, localCoordinates.y)) {
