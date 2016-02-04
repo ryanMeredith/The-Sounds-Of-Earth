@@ -37,7 +37,7 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
 
         setLoadingFlag();
 
-        for (HashMap.Entry<String, String> sound : soundManager.getSoundsToLoad().entrySet()) {
+        for (HashMap.Entry<String, String> sound : soundManager.getSoundsInFile().entrySet()) {
             soundsToLoad.add(sound.getKey());
             assetManager.load(sound.getValue(), Sound.class);
         }
@@ -45,8 +45,15 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
     }
 
     public void loadSound(String soundName) {
+        soundsToLoad.clear();
+        setLoadingFlag();
         soundsToLoad.add(soundName);
-        assetManager.load(soundManager.getSoundsToLoad().get(soundName), Sound.class);
+        assetManager.load(soundManager.getSoundsInFile().get(soundName), Sound.class);
+    }
+
+    public void removeSound(String soundName) {
+        soundManager.removeSound(soundName);
+        assetManager.unload(soundManager.getSoundLocation(soundName));
     }
 
     // fast method to make sure we have all project data as these should be small
@@ -107,10 +114,11 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
     public boolean update() {
 
         if (isCurrentlyLoading) {
-            Gdx.app.log("loading", assetManager.getAssetNames().toString());
+
             boolean finishedLoading = assetManager.update();
             updatePercentageLoaded();
             if (finishedLoading) {
+                Gdx.app.log("loaded", assetManager.getAssetNames().toString());
                 if (isCurrentlyLoading) {
                     postLoad();
                 }
@@ -136,12 +144,12 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
                     ".atlas", TextureAtlas.class);
             spriteAnimations.put(name, animAtlas);
         }
-        System.out.println(soundsToLoad);
+        Gdx.app.log("sounds to load", soundsToLoad.toString());
         for (String soundName : soundsToLoad) {
 
             soundManager.asyncLoadSoundData(
                     soundName,
-                    assetManager.get(soundManager.getSoundsToLoad().get(soundName), Sound.class)
+                    assetManager.get(soundManager.getSoundsInFile().get(soundName), Sound.class)
             );
         }
 

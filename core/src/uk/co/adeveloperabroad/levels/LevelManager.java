@@ -1,7 +1,6 @@
 package uk.co.adeveloperabroad.levels;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,9 +8,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.TextureRegionComponent;
-import com.uwsoft.editor.renderer.resources.IResourceLoader;
-import com.uwsoft.editor.renderer.resources.IResourceRetriever;
-import com.uwsoft.editor.renderer.resources.ResourceManager;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
@@ -23,35 +19,34 @@ public class LevelManager implements Disposable{
     private Array<Level> levels;
     private ItemWrapper root;
 
-    public GameResourceManager getRm() {
-        return rm;
-    }
-
-    public void setRm(GameResourceManager rm) {
-        this.rm = rm;
-    }
-
-    public ItemWrapper getRoot() {
-        return root;
-    }
-
-    public void setRoot(ItemWrapper root) {
-        this.root = root;
-    }
-
     private GameResourceManager rm;
 
     public Level currentLevel;
     public Sound mysterySound;
 
-
     public int finalLevelNumber;
 
-    public LevelManager(Array levels) {
+    public LevelManager(Array levels, GameResourceManager rm) {
         this.levels = levels;
-//        this.root = root;
-//        this.rm = (GameResourceManager) rm;
+        this.rm =  rm;
         setFinalLevelNumber();
+    }
+
+    private String getSoundNameForLevel(int levelNumber) {
+        for (Level level : levels) {
+            if (level.levelNumber == levelNumber) {
+                return level.sound;
+            }
+        }
+        return null;
+    }
+
+    public void preLoadSound(int levelNumber) {
+
+        if (levelNumber > finalLevelNumber) {
+            levelNumber = 1;
+        }
+        rm.loadSound(getSoundNameForLevel(levelNumber));
     }
 
 
@@ -66,21 +61,32 @@ public class LevelManager implements Disposable{
 
     public void loadLevel(int levelNumber) {
 
+        preLoadSound(levelNumber + 1);
+        unLoadOldSound(levelNumber);
+
         for (Level level : levels) {
             if (level.levelNumber == levelNumber) {
                 currentLevel = level;
             }
         }
-        loadSound();
+        setSound();
         loadPictures();
     }
 
-    public void loadSound() {
+    private void unLoadOldSound(int levelNumber) {
 
         if (mysterySound != null) {
             mysterySound.stop();
             mysterySound.dispose();
+            mysterySound = null;
+            rm.removeSound(getSoundNameForLevel(levelNumber - 1));
         }
+
+    }
+
+    public void setSound() {
+
+
 
         mysterySound = rm.soundManager.getSound(currentLevel.sound);
 
@@ -113,6 +119,10 @@ public class LevelManager implements Disposable{
     @Override
     public void dispose() {
 
+    }
+
+    public void setRoot(ItemWrapper root) {
+        this.root = root;
     }
 }
 

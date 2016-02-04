@@ -23,10 +23,6 @@ public class GameResourceManager extends AsynchronousResourceManager {
        initAllSceneData();
        // get image pack
        loadAtlasPack();
-       // load sounds
-       loadSounds();
-//       loadSound("chimp");
-
 
 
     }

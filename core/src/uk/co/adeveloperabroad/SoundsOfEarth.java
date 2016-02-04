@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 import uk.co.adeveloperabroad.levels.Level;
 import uk.co.adeveloperabroad.levels.LevelManager;
@@ -41,7 +40,9 @@ public class SoundsOfEarth extends Game implements Telegraph{
 
         Json json = new Json();
         Array<Level> levels = json.fromJson(Array.class, Level.class, Gdx.files.internal("levels/levelResources"));
-        levelManager = new LevelManager(levels);
+        levelManager = new LevelManager(levels, rm);
+        // load level one sound
+        levelManager.preLoadSound(1);
 
         splashScreen = new SplashScreen(rm, sceneLoader.getBatch());
         setScreen(splashScreen);
@@ -53,7 +54,6 @@ public class SoundsOfEarth extends Game implements Telegraph{
     public void render() {
         super.render();
         rm.update();
-
 //        // only show splash at start of game;
         if (splashScreen != null) {
             transitionSplash();
@@ -62,7 +62,6 @@ public class SoundsOfEarth extends Game implements Telegraph{
     }
 
     private void transitionSplash() {
-        Gdx.app.log("splash alpha", splashScreen.alpha.toString());
         // if fully loaded and faded in, create screen objects and fade out
         if (!rm.isCurrentlyLoading  & splashScreen.alpha == 1) {
             instantiateScreens();

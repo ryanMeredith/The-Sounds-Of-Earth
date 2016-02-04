@@ -13,13 +13,13 @@ import java.util.Iterator;
 /**
  * Created by snow on 02/02/16.
  */
-public class SoundManager implements Disposable{
+public class SoundManager implements Disposable {
 
-    private HashMap<String, String> soundsToLoad;
+    private HashMap<String, String> soundsInFile;
     private HashMap<String, Sound> sounds;
 
     public SoundManager(FileHandle handle) {
-        soundsToLoad = new HashMap<String, String>();
+        soundsInFile = new HashMap<String, String>();
         sounds = new HashMap<String, Sound>();
         readSoundsToLoad(handle);
     }
@@ -34,8 +34,8 @@ public class SoundManager implements Disposable{
         return null;
     }
 
-    public HashMap<String, String> getSoundsToLoad() {
-        return soundsToLoad;
+    public HashMap<String, String> getSoundsInFile() {
+        return soundsInFile;
     }
 
 
@@ -48,7 +48,7 @@ public class SoundManager implements Disposable{
                 JsonValue value = it.next();
                 String name = value.getString("name");
                 String location = value.getString("location");
-                soundsToLoad.put(name, location);
+                soundsInFile.put(name, location);
             }
 
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class SoundManager implements Disposable{
     // sync loading
     private void loadSoundData() {
 
-        for (HashMap.Entry<String, String> entry : soundsToLoad.entrySet()) {
+        for (HashMap.Entry<String, String> entry : soundsInFile.entrySet()) {
             String name = entry.getKey();
             String location = entry.getValue();
             Sound sound = Gdx.audio.newSound(Gdx.files.internal(location));
@@ -69,6 +69,14 @@ public class SoundManager implements Disposable{
 
     public void asyncLoadSoundData(String name, Sound sound) {
         sounds.put(name, sound);
+    }
+
+    public void removeSound(String soundName) {
+        sounds.remove(soundName);
+    }
+
+    public String getSoundLocation(String soundName) {
+        return soundsInFile.get(soundName);
     }
 
     @Override

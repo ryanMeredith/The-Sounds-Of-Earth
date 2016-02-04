@@ -54,7 +54,7 @@ public class AlienHeadController implements IScript, Telegraph{
             textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
         }
 
-        if (alienAnimation.isAnimationFinished(animationTimeAlien)&& !hasTrackFinished) {
+        if (alienAnimation.isAnimationFinished(animationTimeAlien) && !hasTrackFinished) {
             runAnimation = false;
             animationTimeAlien = 0;
         }

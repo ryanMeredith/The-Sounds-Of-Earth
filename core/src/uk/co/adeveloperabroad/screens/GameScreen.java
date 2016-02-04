@@ -76,7 +76,6 @@ public class GameScreen implements Screen, Telegraph {
         sceneLoader.loadScene("MainScene", viewport);
         GameResourceManager rm = (GameResourceManager) sceneLoader.getRm();
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
-        levelManager.setRm(rm);
         levelManager.setRoot(root);
 
         Entity scoreEntity = root.getChild("score").getEntity();
