@@ -3,6 +3,8 @@ package uk.co.adeveloperabroad.levels;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.uwsoft.editor.renderer.components.NodeComponent;
@@ -92,13 +94,18 @@ public class LevelManager implements Disposable{
     }
 
     private void loadPicture(String pictureIdentifier, String newPictureName, String correctAnswer) {
+
+        // get the picture entity from the composite
         Entity entity = root.getChild(pictureIdentifier).getEntity();
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
-        Entity oldPicture = nodeComponent.children.get(0);
-        Entity newPicture = root.getChild(newPictureName).getEntity();
-        TextureRegionComponent newTexture = ComponentRetriever.get(newPicture, TextureRegionComponent.class);
-        oldPicture.add(newTexture);
+        Entity picture = nodeComponent.children.get(0);
 
+        // get new image from the atlas
+        TextureAtlas pack = rm.assetManager.get("orig/pack.atlas", TextureAtlas.class);
+        TextureRegion nextRegion = pack.findRegion(newPictureName);
+        picture.getComponent(TextureRegionComponent.class).region = nextRegion;
+
+        // tell it if it is the correct answer.
         PictureComponent pictureComponent = ComponentRetriever.get(entity, PictureComponent.class);
         pictureComponent.isCorrectAnswer = pictureIdentifier.equals(correctAnswer);
     }
