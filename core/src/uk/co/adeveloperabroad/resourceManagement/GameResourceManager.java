@@ -23,6 +23,7 @@ public class GameResourceManager extends AsynchronousResourceManager {
        initAllSceneData();
        // get image pack
        loadAtlasPack();
+       loadSound("alienTalk");
 
 
     }

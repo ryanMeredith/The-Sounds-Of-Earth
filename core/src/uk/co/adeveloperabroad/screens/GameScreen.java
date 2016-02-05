@@ -30,7 +30,6 @@ import uk.co.adeveloperabroad.controllers.AlienController;
 import uk.co.adeveloperabroad.controllers.AlienHeadController;
 import uk.co.adeveloperabroad.controllers.PlayAgainController;
 import uk.co.adeveloperabroad.controllers.RecordController;
-import uk.co.adeveloperabroad.controllers.SpeechController;
 import uk.co.adeveloperabroad.controllers.SpeedIndicatorController;
 import uk.co.adeveloperabroad.controllers.StylusController;
 import uk.co.adeveloperabroad.systems.PictureSystem;
@@ -99,14 +98,13 @@ public class GameScreen implements Screen, Telegraph {
 
         root.getChild("alienHead").addScript(new AlienHeadController(
                 rm.assetManager.get("spriteAnimations/headAnimPacked/head.atlas",
-                        TextureAtlas.class)));
+                        TextureAtlas.class), rm.soundManager.getSound("alienTalk")));
 
         recordLabel = root.getChild("record").getEntity().add(new RecordSpeedComponent());
         root.getChild("record").addScript(new RecordController(
                 rm.assetManager.get("spriteAnimations/recordPacked/smallRecord.atlas",
                         TextureAtlas.class)));
 
-        root.getChild("speech").addScript(new SpeechController());
         root.getChild("playAgain").addScript(new PlayAgainController());
 
         stylus = root.getChild("stylus").getEntity().add(new RecordSpeedComponent());
@@ -159,9 +157,8 @@ public class GameScreen implements Screen, Telegraph {
 
 
     private void playSound(float speed) {
-        levelManager.mysterySound.pause(soundId);
+
         levelManager.mysterySound.setPitch(soundId, speed * 0.2f);
-        levelManager.mysterySound.setVolume(soundId, 1.0f);
         levelManager.mysterySound.resume(soundId);
     }
 
@@ -184,6 +181,7 @@ public class GameScreen implements Screen, Telegraph {
         for (Entity pictureEntity : pictureEntities) {
             pictureEntity.remove(PictureComponent.class);
         }
+
 
     }
 

@@ -45,7 +45,7 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
     }
 
     public void loadSound(String soundName) {
-        soundsToLoad.clear();
+
         setLoadingFlag();
         soundsToLoad.add(soundName);
         assetManager.load(soundManager.getSoundsInFile().get(soundName), Sound.class);
@@ -152,7 +152,7 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
                     assetManager.get(soundManager.getSoundsInFile().get(soundName), Sound.class)
             );
         }
-
+        soundsToLoad.clear();
 
         isCurrentlyLoading = false;
     }

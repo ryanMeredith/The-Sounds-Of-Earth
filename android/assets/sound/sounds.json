@@ -1,91 +1,95 @@
 [
   {
     "name": "auto",
-    "location": "sound/auto.mp3"
+    "location": "sound/auto.ogg"
   },
 
   {
     "name": "child",
-    "location": "sound/child.mp3"
+    "location": "sound/child.ogg"
   },
 
   {
     "name": "chimp",
-    "location": "sound/chimp.mp3"
+    "location": "sound/chimp.ogg"
   },
 
   {
     "name": "cricket",
-    "location": "sound/cricket.mp3"
+    "location": "sound/cricket.ogg"
   },
 
   {
     "name": "dog",
-    "location": "sound/dog.mp3"
+    "location": "sound/dog.ogg"
   },
 
   {
     "name": "fire",
-    "location": "sound/fire.mp3"
+    "location": "sound/fire.ogg"
   },
 
   {
     "name": "footsteps",
-    "location": "sound/footsteps.mp3"
+    "location": "sound/footsteps.ogg"
   },
 
   {
     "name": "horse",
-    "location": "sound/horse.mp3"
+    "location": "sound/horse.ogg"
   },
 
   {
     "name": "hyena",
-    "location": "sound/hyena.mp3"
+    "location": "sound/hyena.ogg"
   },
 
   {
     "name": "morse",
-    "location": "sound/morse.mp3"
+    "location": "sound/morse.ogg"
   },
 
   {
     "name": "mud",
-    "location": "sound/mud.mp3"
+    "location": "sound/mud.ogg"
   },
 
   {
     "name": "pulsar",
-    "location": "sound/pulsar.mp3"
+    "location": "sound/pulsar.ogg"
   },
 
   {
     "name": "sawing",
-    "location": "sound/sawing.mp3"
+    "location": "sound/sawing.ogg"
   },
 
   {
     "name": "sheep",
-    "location": "sound/sheep.mp3"
+    "location": "sound/sheep.ogg"
   },
 
   {
     "name": "tools",
-    "location": "sound/tools.mp3"
+    "location": "sound/tools.ogg"
   },
 
   {
     "name": "tractor",
-    "location": "sound/tractor.mp3"
+    "location": "sound/tractor.ogg"
   },
 
   {
     "name": "train",
-    "location": "sound/train.mp3"
+    "location": "sound/train.ogg"
   },
 
   {
     "name": "wind",
-    "location": "sound/wind.mp3"
+    "location": "sound/wind.ogg"
+  },
+  {
+    "name": "alienTalk",
+    "location": "sound/dogShort.ogg"
   }
 ]

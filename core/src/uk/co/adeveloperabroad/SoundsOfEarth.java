@@ -47,7 +47,7 @@ public class SoundsOfEarth extends Game implements Telegraph{
         splashScreen = new SplashScreen(rm, sceneLoader.getBatch());
         setScreen(splashScreen);
 
-        MessageManager.getInstance().setDebugEnabled(true);
+//        MessageManager.getInstance().setDebugEnabled(true);
         MessageManager.getInstance().addListener(this, MessageType.playGame);
 
     }
@@ -57,6 +57,7 @@ public class SoundsOfEarth extends Game implements Telegraph{
         super.render();
         rm.update();
         MessageManager.getInstance().update(Gdx.graphics.getDeltaTime());
+
 //        // only show splash at start of game;
         if (splashScreen != null) {
             transitionSplash();

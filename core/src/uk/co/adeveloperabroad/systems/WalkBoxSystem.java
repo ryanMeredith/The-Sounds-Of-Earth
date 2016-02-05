@@ -3,6 +3,7 @@ package uk.co.adeveloperabroad.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -45,6 +46,10 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
 
 
         if(nodeComponent == null) return;
+
+        if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
+            hideKeyOptions(nodeComponent);
+        }
 
         if(isTouched(entity)) {
 //            Gdx.app.log("foot", "touched");
@@ -132,6 +137,19 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
         }
     }
 
+    private void hideKeyOptions(NodeComponent nodeComponent) {
+        for (int i = 0; i < nodeComponent.children.size; i++) {
+
+            Entity childEntity = nodeComponent.children.get(i);
+            MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
+            ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
+
+            if(childZComponent.layerName.equals("keyboard") ) {
+                childMainItemComponent.visible = false;
+            }
+        }
+    }
+
     private void nextButton(NodeComponent nodeComponent) {
         for (int i = 0; i < nodeComponent.children.size; i++) {
 
@@ -139,23 +157,24 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
             MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
             ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
 
-            if(childZComponent.layerName.equals("transparant") ) {
+            if(childZComponent.layerName.equals("transparent") ) {
                 childMainItemComponent.visible = false;
             }
 
             if(childZComponent.layerName.equals("keyboard")
-//                && (Gdx.app.getType() == Application.ApplicationType.Desktop)
+                && (Gdx.app.getType() == Application.ApplicationType.Desktop)
 
                     ) {
                 childMainItemComponent.visible = true;
             }
 
             if(childZComponent.layerName.equals("tablet") ) {
-                childMainItemComponent.visible = false;
+                childMainItemComponent.visible = true;
             }
 
         }
     }
+
 
     private boolean isTouched(Entity entity) {
 

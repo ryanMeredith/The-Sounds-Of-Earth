@@ -25,6 +25,8 @@ public class StylusController implements IScript, Telegraph {
     private float startingPosition;
     private float endingPosition = -2.0f;
 
+    private Boolean timeOutSent = false;
+
     @Override
     public void init(Entity entity) {
         stylus = entity;
@@ -42,8 +44,9 @@ public class StylusController implements IScript, Telegraph {
                 + (delta * recordSpeedComponent.recordSpeed * 0.10f),startingPosition, endingPosition);
 
 
-        if (transformComponent.x == endingPosition) {
+        if (transformComponent.x == endingPosition && !timeOutSent) {
             MessageManager.getInstance().dispatchMessage(0.0f, this, MessageType.timeout);
+            timeOutSent = true;
         }
 
         if (transformComponent.x > (endingPosition - 8) && transformComponent.x <= endingPosition) {
@@ -61,6 +64,7 @@ public class StylusController implements IScript, Telegraph {
     public boolean handleMessage(Telegram msg) {
 
         if (msg.message == MessageType.startingPositions) {
+            timeOutSent = false;
             transformComponent.x = startingPosition;
             tintComponent.color = tintComponent.color.set(Color.WHITE);
         }

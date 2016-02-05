@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.TextureRegionComponent;
 import com.uwsoft.editor.renderer.scripts.IScript;
 
@@ -29,15 +31,23 @@ public class AlienHeadController implements IScript, Telegraph{
     private TextureRegionComponent textureRegionComponent;
     private TextureAtlas alienAtlas;
 
+    private SpeechController speechController;
+    private Sound alienTalk;
 
-    public AlienHeadController(TextureAtlas alienAtlas) {
+    public AlienHeadController(TextureAtlas alienAtlas, Sound alienTalk) {
         this.alienAtlas = alienAtlas;
+        this.alienTalk = alienTalk;
     }
 
     @Override
     public void init(Entity entity) {
 
-        textureRegionComponent = entity.getComponent(TextureRegionComponent.class);
+        NodeComponent nodeComponent = entity.getComponent(NodeComponent.class);
+        Entity head = nodeComponent.children.get(0);
+        Entity speech = nodeComponent.children.get(1);
+        speechController = new SpeechController(speech, alienTalk);
+
+        textureRegionComponent = head.getComponent(TextureRegionComponent.class);
 
         alienAtlasRegions = new Array<TextureAtlas.AtlasRegion>(alienAtlas.getRegions());
         alienAtlasRegions.sort(new RegionComparator());
@@ -50,6 +60,7 @@ public class AlienHeadController implements IScript, Telegraph{
     public void act(float delta) {
 
         if (runAnimation) {
+            alienAnimation.setPlayMode(Animation.PlayMode.NORMAL);
             animationTimeAlien  = animationTimeAlien + Gdx.graphics.getDeltaTime();
             textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
         }
@@ -59,6 +70,14 @@ public class AlienHeadController implements IScript, Telegraph{
             animationTimeAlien = 0;
         }
 
+        speechController.act(delta);
+
+        if (speechController.isTalking) {
+            alienAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG );
+            animationTimeAlien  = animationTimeAlien + Gdx.graphics.getDeltaTime();
+            textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
+        }
+
     }
 
 
@@ -66,6 +85,11 @@ public class AlienHeadController implements IScript, Telegraph{
     @Override
     public void dispose() {
         alienAtlas.dispose();
+
+        if (speechController != null) {
+            speechController.dispose();
+        }
+        alienTalk.dispose();
     }
 
     private void addListeners() {
@@ -73,7 +97,7 @@ public class AlienHeadController implements IScript, Telegraph{
         MessageManager.getInstance().addListener(this, MessageType.timeout);
         MessageManager.getInstance().addListener(this, MessageType.win);
         MessageManager.getInstance().addListener(this, MessageType.lose);
-        MessageManager.getInstance().addListener(this, MessageType.leg2);
+        MessageManager.getInstance().addListener(this, MessageType.leg1);
     }
 
     @Override
@@ -86,6 +110,7 @@ public class AlienHeadController implements IScript, Telegraph{
                 break;
             case MessageType.startingPositions:
                 animationTimeAlien = 0;
+                textureRegionComponent.region = alienAnimation.getKeyFrame(animationTimeAlien);
                 hasTrackFinished = false;
                 break;
             case MessageType.win:
@@ -94,8 +119,9 @@ public class AlienHeadController implements IScript, Telegraph{
             case MessageType.lose:
                 hasTrackFinished = true;
                 break;
-            case MessageType.leg2:
+            case MessageType.leg1:
                 runAnimation = true;
+                animationTimeAlien = 0;
                 break;
         }
         return true;

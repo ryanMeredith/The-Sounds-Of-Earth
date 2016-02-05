@@ -4,8 +4,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.label.LabelComponent;
@@ -17,9 +19,8 @@ import uk.co.adeveloperabroad.utility.MessageType;
 /**
  * Created by snow on 17/01/16.
  */
-public class SpeechController implements IScript, Telegraph {
+public class SpeechController implements Telegraph, Disposable {
 
-    private Entity speech;
     private MainItemComponent mainItemComponent;
     private LabelComponent labelComponent;
 
@@ -32,16 +33,17 @@ public class SpeechController implements IScript, Telegraph {
     private float delay = 0.1f;
     private float time;
 
-    @Override
-    public void init(Entity entity) {
+    public Boolean isTalking = false;
+    private Sound alienTalk;
 
-        speech = entity;
 
+    public SpeechController(Entity entity, Sound alienTalk) {
+
+        this.alienTalk = alienTalk;
         mainItemComponent = entity.getComponent(MainItemComponent.class);
         mainItemComponent.visible = false;
 
-        NodeComponent nodeComponent = entity.getComponent(NodeComponent.class);
-        labelComponent = nodeComponent.children.get(0).getComponent(LabelComponent.class);
+        labelComponent = entity.getComponent(LabelComponent.class);
         labelComponent.setWrap(true);
         setWinningMessages();
         setLosingMessages();
@@ -91,7 +93,7 @@ public class SpeechController implements IScript, Telegraph {
         losingMessages.add("Why so Sirius?");
     }
 
-    @Override
+
     public void act(float delta) {
 
         time += delta;
@@ -100,17 +102,22 @@ public class SpeechController implements IScript, Telegraph {
             labelComponent.setText(message.substring(0, currentPosition));
             currentPosition ++;
             time = 0;
-
+            isTalking = true;
+            playTalkSound();
             if (currentPosition > messageLength) {
-                MessageManager.getInstance().dispatchMessage(2f, this, MessageType.startingPositions);
+                isTalking = false;
+                MessageManager.getInstance().dispatchMessage(3f, this, MessageType.startingPositions);
             }
         }
 
     }
 
-    @Override
-    public void dispose() {
+    protected void playTalkSound(){
+      alienTalk.play(MathUtils.random(0.4f, 1f), MathUtils.random(0.5f, 1.5f), 1);
+    }
 
+    public void dispose() {
+        alienTalk.dispose();
     }
 
     private String getWinningMessage(){
@@ -129,6 +136,7 @@ public class SpeechController implements IScript, Telegraph {
 
     @Override
     public boolean handleMessage(Telegram msg) {
+        labelComponent.setText("");
         switch (msg.message) {
 
             case MessageType.win:
@@ -145,8 +153,7 @@ public class SpeechController implements IScript, Telegraph {
                 break;
             case MessageType.startingPositions:
                 mainItemComponent.visible = false;
-                labelComponent.setText("");
-
+                break;
         }
         return true;
     }
