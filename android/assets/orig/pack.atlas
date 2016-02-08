@@ -254,6 +254,13 @@ hhh
   orig: 180, 180
   offset: 0, 0
   index: -1
+homeButton
+  rotate: false
+  xy: 1419, 1149
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
 i
   rotate: false
   xy: 760, 523

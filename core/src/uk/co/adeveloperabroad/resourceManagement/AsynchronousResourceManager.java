@@ -2,6 +2,7 @@ package uk.co.adeveloperabroad.resourceManagement;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -44,11 +45,19 @@ public class AsynchronousResourceManager extends ResourceManager implements Disp
 
     }
 
+    public void loadMusic(String musicLocation) {
+        setLoadingFlag();
+        assetManager.load(musicLocation, Music.class);
+    }
+
     public void loadSound(String soundName) {
 
-        setLoadingFlag();
-        soundsToLoad.add(soundName);
-        assetManager.load(soundManager.getSoundsInFile().get(soundName), Sound.class);
+        if (soundManager.getSound(soundName) == null) {
+            setLoadingFlag();
+            soundsToLoad.add(soundName);
+            assetManager.load(soundManager.getSoundsInFile().get(soundName), Sound.class);
+        }
+
     }
 
     public void removeSound(String soundName) {

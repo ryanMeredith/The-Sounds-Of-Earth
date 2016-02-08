@@ -1,14 +1,17 @@
 package uk.co.adeveloperabroad.controllers;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.uwsoft.editor.renderer.components.DimensionsComponent;
 import com.uwsoft.editor.renderer.components.MainItemComponent;
 import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.TintComponent;
 import com.uwsoft.editor.renderer.components.additional.ButtonComponent;
 import com.uwsoft.editor.renderer.scripts.IScript;
+import com.uwsoft.editor.renderer.utils.TransformMathUtils;
 
 import uk.co.adeveloperabroad.utility.MessageType;
 
@@ -26,8 +29,17 @@ public class MenuButtonController implements IScript {
     private ButtonComponent buttonComponent;
     private String buttonName;
 
+    private Vector2 localCoordinates;
+    private DimensionsComponent dimensionsComponent;
+    private Entity entity;
+
+
+
     @Override
     public void init(Entity entity) {
+
+        this.entity = entity;
+        dimensionsComponent = entity.getComponent(DimensionsComponent.class);
         tintComponent = entity.getComponent(TintComponent.class);
         NodeComponent nodeComponent = entity.getComponent(NodeComponent.class);
         tintComponent1 = nodeComponent.children.get(0).getComponent(TintComponent.class);
@@ -40,11 +52,10 @@ public class MenuButtonController implements IScript {
         tintComponent2.color = tintComponent.color.set(1, 1, 1, alpha);
         tintComponent3.color = tintComponent.color.set(1, 1,1 , alpha);
 
-        buttonComponent = new ButtonComponent();
-        entity.add(buttonComponent);
-
         MainItemComponent mainItemComponent = entity.getComponent(MainItemComponent.class);
         buttonName = mainItemComponent.itemIdentifier;
+
+        localCoordinates = new Vector2(0,0);
 
     }
 
@@ -56,7 +67,7 @@ public class MenuButtonController implements IScript {
         tintComponent1.color = tintComponent.color.set(1, 1, 1, alpha);
         tintComponent1.color = tintComponent.color.set(1, 1, 1, alpha);
 
-        if (buttonComponent.isTouched) {
+        if (this.isTouched(entity)) {
             buttonPressed();
         }
 
@@ -65,16 +76,32 @@ public class MenuButtonController implements IScript {
     private void buttonPressed() {
 
         if (buttonName.equals("intro")) {
-            System.out.println("intro");
+            MessageManager.getInstance().dispatchMessage(null, MessageType.goToIntroduction);
         }
 
         if (buttonName.equals("play")) {
-            MessageManager.getInstance().dispatchMessage(null, MessageType.playGame);
+            MessageManager.getInstance().dispatchMessage(null, MessageType.goToGame);
         }
 
         if (buttonName.equals("about")) {
-            System.out.println("intro");
+            MessageManager.getInstance().dispatchMessage(null, MessageType.goToAbout);
         }
+
+        if (buttonName.equals("exit")) {
+            Gdx.app.exit();
+        }
+    }
+
+    private boolean isTouched(Entity entity) {
+
+        if(Gdx.input.justTouched()) {
+            localCoordinates.set(Gdx.input.getX(), Gdx.input.getY());
+            TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
+            if(dimensionsComponent.hit(localCoordinates.x, localCoordinates.y)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

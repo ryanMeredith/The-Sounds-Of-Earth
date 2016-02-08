@@ -12,13 +12,16 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.components.label.LabelComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
+import uk.co.adeveloperabroad.controllers.HomeButtonController;
+import uk.co.adeveloperabroad.levels.Level;
 import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
 import uk.co.adeveloperabroad.utility.BinaryDisplay;
 import uk.co.adeveloperabroad.levels.LevelManager;
@@ -45,7 +48,6 @@ public class GameScreen implements Screen, Telegraph {
     private Viewport viewport;
     private LevelManager levelManager;
 
-
     private BinaryDisplay binaryDisplay = new BinaryDisplay();
     private LabelComponent scoreLabel;
     private LabelComponent trackLabel;
@@ -64,16 +66,16 @@ public class GameScreen implements Screen, Telegraph {
     private PictureSystem pictureSystem = new PictureSystem();
     private WalkBoxSystem walkBoxSystem = new WalkBoxSystem();
 
-    public GameScreen(Viewport viewport, SceneLoader sceneLoader, LevelManager levelManager) {
+    public GameScreen(Viewport viewport,  GameResourceManager rm) {
         this.viewport = viewport;
-        this.sceneLoader = sceneLoader;
-        this.levelManager = levelManager;
-    }
+        sceneLoader = new SceneLoader(rm);
 
-    @Override
-    public void show() {
+        Json json = new Json();
+        Array<Level> levels = json.fromJson(Array.class, Level.class, Gdx.files.internal("levels/levelResources"));
+        levelManager = new LevelManager(levels, rm);;
+        levelManager.preLoadSound(1);
+
         sceneLoader.loadScene("MainScene", viewport);
-        GameResourceManager rm = (GameResourceManager) sceneLoader.getRm();
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
         levelManager.setRoot(root);
 
@@ -88,11 +90,13 @@ public class GameScreen implements Screen, Telegraph {
         ComponentRetriever.addMapper(WalkBoxComponent.class);
         ComponentRetriever.addMapper(RecordSpeedComponent.class);
 
-        sceneLoader.addComponentsByTagName("input", WalkBoxComponent.class);
-        sceneLoader.getEngine().addSystem(walkBoxSystem);
+        sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
         sceneLoader.getEngine().addSystem(pictureSystem);
 
+        sceneLoader.addComponentsByTagName("input", WalkBoxComponent.class);
+        sceneLoader.getEngine().addSystem(walkBoxSystem);
 
+        root.getChild("homeButton").addScript(new HomeButtonController());
         root.getChild("alien").addScript(new AlienController(
                 rm.assetManager.get("spriteAnimations/walkPacked/walk.atlas", TextureAtlas.class)));
 
@@ -115,18 +119,25 @@ public class GameScreen implements Screen, Telegraph {
 
         addMessageListeners();
 
-        playLevel(1);
+    }
+
+    @Override
+    public void show() {
+        // done as early as possible for android;
+
+        playLevel();
     }
 
     @Override
     public void render(float delta) {
 
+        viewport.getCamera().update();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT
                 | GL20.GL_DEPTH_BUFFER_BIT
                 | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV
                 : 0));
 
-        sceneLoader.getEngine().update(Gdx.graphics.getDeltaTime());
+        sceneLoader.getEngine().update(delta);
 
         recordSpeed -= Gdx.graphics.getDeltaTime() * RECORD_DRAGSPEED;
         recordSpeed = MathUtils.clamp(recordSpeed, 0, 10);
@@ -142,47 +153,29 @@ public class GameScreen implements Screen, Telegraph {
 
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
+            MessageManager.getInstance().dispatchMessage(0, null, MessageType.goToMenu);
         }
+        MessageManager.getInstance().update(Gdx.graphics.getDeltaTime());
     }
 
+    protected void playLevel() {
 
-    protected void playLevel(int trackNumber) {
-        sceneLoader.addComponentsByTagName("picture", PictureComponent.class);
-        levelManager.loadLevel(trackNumber);
-        trackLabel.setText(binaryDisplay.getTrack(trackNumber, levelManager.finalLevelNumber));
+        levelManager.loadLevel();
+        trackLabel.setText(binaryDisplay.getTrack(levelManager.getCurrentLevelNumber(), levelManager.finalLevelNumber));
         loadMysterySound();
-        startPositions();
-    }
-
-
-    private void playSound(float speed) {
-
-        levelManager.mysterySound.setPitch(soundId, speed * 0.2f);
-        levelManager.mysterySound.resume(soundId);
-    }
-
-
-    protected void startPositions() {
+        unlockButtons();
         recordSpeed = 0;
     }
 
     protected void loadMysterySound() {
-        soundId = levelManager.mysterySound.loop();
-        levelManager. mysterySound.pause(soundId);
+        soundId = levelManager.mysterySound.play();
+        levelManager.mysterySound.setLooping(soundId, true);
+        levelManager.mysterySound.pause(soundId);
     }
 
-
-    public void guessed() {
-
-        lockButtons();
-        ImmutableArray<Entity> pictureEntities =
-                sceneLoader.getEngine().getEntitiesFor(Family.all(PictureComponent.class).get());
-        for (Entity pictureEntity : pictureEntities) {
-            pictureEntity.remove(PictureComponent.class);
-        }
-
-
+    private void playSound(float speed) {
+        levelManager.mysterySound.setPitch(soundId, speed * 0.2f);
+        levelManager.mysterySound.resume(soundId);
     }
 
     private void addMessageListeners() {
@@ -201,26 +194,28 @@ public class GameScreen implements Screen, Telegraph {
             case MessageType.win:
                 score++;
                 scoreLabel.setText(binaryDisplay.getScore(score));
-                guessed();
+                lockButtons();
                 break;
             case MessageType.lose:
-                guessed();
+                lockButtons();
                 break;
             case MessageType.moreSpeed:
                 recordSpeed += LEG_IMPULSE_SPEED;
-                unlockButtons();
                 break;
             case MessageType.restart:
                 score = 0;
-                playLevel(1);
+                levelManager.setCurrentLevelNumber(1);
+                playLevel();
                 break;
             case MessageType.startingPositions:
+
                 if (levelManager.finalLevelNumber >= levelManager.currentLevel.levelNumber + 1) {
-                    playLevel(levelManager.currentLevel.levelNumber + 1);
+                    levelManager.loadNextLevel();
+                    playLevel();
                 } else {
                     MessageManager.getInstance().dispatchMessage(0, null, MessageType.gameOver);
                 }
-                unlockButtons();
+
                 break;
         }
         return true;
@@ -230,15 +225,28 @@ public class GameScreen implements Screen, Telegraph {
         ImmutableArray<Entity> pictureEntities =
                 sceneLoader.getEngine().getEntitiesFor(Family.all(PictureComponent.class).get());
         for (Entity pictureEntity : pictureEntities) {
-            pictureEntity.getComponent(PictureComponent.class).isTouched = false;
+            pictureEntity.getComponent(PictureComponent.class).isLocked = false;
+        }
+
+        ImmutableArray<Entity> walkEntities =
+                sceneLoader.getEngine().getEntitiesFor(Family.all(WalkBoxComponent.class).get());
+        for (Entity walkEntity : walkEntities) {
+            walkEntity.getComponent(WalkBoxComponent.class).isLocked = false;
         }
     }
 
     protected void lockButtons() {
+
         ImmutableArray<Entity> pictureEntities =
                 sceneLoader.getEngine().getEntitiesFor(Family.all(PictureComponent.class).get());
         for (Entity pictureEntity : pictureEntities) {
-            pictureEntity.getComponent(PictureComponent.class).isTouched = true;
+            pictureEntity.getComponent(PictureComponent.class).isLocked = true;
+        }
+
+        ImmutableArray<Entity> walkEntities =
+                sceneLoader.getEngine().getEntitiesFor(Family.all(WalkBoxComponent.class).get());
+        for (Entity walkEntity : walkEntities) {
+            walkEntity.getComponent(WalkBoxComponent.class).isLocked = true;
         }
     }
 
@@ -249,19 +257,23 @@ public class GameScreen implements Screen, Telegraph {
 
     @Override
     public void pause() {
-
+        // protecting androids sensitive sound pool
+        levelManager.mysterySound.pause(soundId);
+        levelManager.mysterySound = null;
+        recordSpeed = 0;
+        Gdx.app.log("game", "pause");
     }
 
     @Override
     public void resume() {
-
-
-
+        levelManager.setSound();
+        Gdx.app.log("game", "resume");
     }
 
     @Override
     public void hide() {
-
+       levelManager.mysterySound.pause(soundId);
+       levelManager.mysterySound = null;
     }
 
 
@@ -269,7 +281,5 @@ public class GameScreen implements Screen, Telegraph {
     public void dispose() {
 
     }
-
-
 
 }

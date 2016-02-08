@@ -37,6 +37,11 @@ public class PictureSystem extends IteratingSystem {
 
         if(nodeComponent == null) return;
 
+        // don't proceed if picture is locked
+        if (pictureComponent.isLocked) {
+            return;
+        }
+
 
         for (int i = 0; i < nodeComponent.children.size; i++) {
 
@@ -44,7 +49,7 @@ public class PictureSystem extends IteratingSystem {
                 MainItemComponent childMainItemComponent = ComponentRetriever.get(childEntity, MainItemComponent.class);
                 ZIndexComponent childZComponent = ComponentRetriever.get(childEntity, ZIndexComponent.class);
 
-                if(isTouched(entity) && !pictureComponent.isTouched) {
+                if(isTouched(entity)) {
 
                     if(childZComponent.layerName.equals("right")
                             && pictureComponent.isCorrectAnswer) {

@@ -16,6 +16,7 @@ public class GameResourceManager extends AsynchronousResourceManager {
 
    public GameResourceManager() {
 
+
        loadAnimationAtlasPack("spriteAnimations/walkPacked/walk.atlas");
        loadAnimationAtlasPack("spriteAnimations/headAnimPacked/head.atlas");
        loadAnimationAtlasPack("spriteAnimations/recordPacked/smallRecord.atlas");
@@ -24,6 +25,7 @@ public class GameResourceManager extends AsynchronousResourceManager {
        // get image pack
        loadAtlasPack();
        loadSound("alienTalk");
+       loadMusic("music/bachFree.ogg");
 
 
     }

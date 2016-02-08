@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Component;
 public class WalkBoxComponent implements Component {
 
     public boolean isTouched = false;
+    public boolean isLocked = false;
 
     public WalkBoxComponent() {
 

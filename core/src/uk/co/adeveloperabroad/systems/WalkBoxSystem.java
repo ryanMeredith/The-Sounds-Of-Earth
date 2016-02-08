@@ -40,12 +40,19 @@ public class WalkBoxSystem extends IteratingSystem implements Telegraph {
     protected void processEntity(Entity entity, float deltaTime) {
         NodeComponent nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
         MainItemComponent mainItemComponent = ComponentRetriever.get(entity, MainItemComponent.class);
+        WalkBoxComponent walkBoxComponent = ComponentRetriever.get(entity, WalkBoxComponent.class);
+
 //        customVariables.loadFromString(mainItemComponent.customVars);
 // ^ this seems to be causing a memory leak and I cannot work out why. ^
 //        legNumber = customVariables.getIntegerVariable("legNumber");
 
 
         if(nodeComponent == null) return;
+
+        // if locked don't process
+        if(walkBoxComponent.isLocked) {
+            return;
+        }
 
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
             hideKeyOptions(nodeComponent);

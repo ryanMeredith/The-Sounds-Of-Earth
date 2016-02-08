@@ -2,12 +2,17 @@ package uk.co.adeveloperabroad.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.uwsoft.editor.renderer.SceneLoader;
+
 import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
+import uk.co.adeveloperabroad.utility.MessageType;
 
 
 /**
@@ -21,20 +26,23 @@ public class SplashScreen implements Screen {
     private GameResourceManager rm;
     private Float fadeSpeed = 0.05f;
     private Float fadeTime = 0.0f;
-    public Float alpha = 0.0f;
+    private Float alpha = 0.0f;
 
-    public Sprite record;
+    private Sprite record;
 
-    public Boolean fadeIn = true;
-    public Boolean fadeOut = false;
+    private Boolean fadeIn = true;
+    private Boolean fadeOut = false;
+    private Boolean isLoaded = false;
 
+    public SplashScreen(GameResourceManager rm) {
 
-    public SplashScreen(GameResourceManager rm, Batch batch) {
         this.rm = rm;
-        this.batch = batch;
+        batch = new SpriteBatch();
         rm.record.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        record = new Sprite(rm.record);
-        record.setPosition((Gdx.graphics.getWidth() * 0.5f - record.getWidth() * 0.5f) -9 ,135);
+        record = new Sprite(rm.record, rm.record.getWidth(), rm.record.getHeight());
+        record.setPosition(
+                (Gdx.graphics.getWidth() * 0.5f - record.getWidth() * 0.5f) ,
+                (Gdx.graphics.getHeight() * 0.5f - record.getHeight() * 0.5f) + 10);
 
     }
 
@@ -46,10 +54,8 @@ public class SplashScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT
-                | GL20.GL_DEPTH_BUFFER_BIT
-                | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV
-                : 0));
+        Gdx.gl.glClearColor( 0, 0, 0, 1 );
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
         fadeTime += delta;
         batch.begin();
@@ -73,6 +79,7 @@ public class SplashScreen implements Screen {
                 fadeTime = 0.0f;
             }
         }
+        transitionSplash();
 
     }
 
@@ -80,6 +87,21 @@ public class SplashScreen implements Screen {
         fadeIn = false;
         fadeOut = true;
     }
+
+    private void transitionSplash() {
+        // if fully loaded and faded in, create screen objects and fade out
+        if (!rm.isCurrentlyLoading  & alpha == 1) {
+            fadeOut();
+        }
+
+        // when fully faded out start the game
+        if (fadeOut && alpha == 0 && !isLoaded) {
+            isLoaded = true;
+            Gdx.app.log("messageSent", "goToMenu ");
+            MessageManager.getInstance().dispatchMessage(0, null, MessageType.goToMenu);
+        }
+    }
+
 
     @Override
     public void resize(int width, int height) {

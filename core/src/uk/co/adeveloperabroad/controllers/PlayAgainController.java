@@ -21,6 +21,7 @@ public class PlayAgainController implements IScript, Telegraph {
 
     private Entity playAgain;
     private MainItemComponent mainItemComponent;
+    private DimensionsComponent dimensionsComponent;
     private Vector2 localCoordinates;
 
 
@@ -29,6 +30,8 @@ public class PlayAgainController implements IScript, Telegraph {
 
         playAgain = entity;
         mainItemComponent = entity.getComponent(MainItemComponent.class);
+        dimensionsComponent = entity.getComponent(DimensionsComponent.class);
+
         mainItemComponent.visible = false;
         localCoordinates = new Vector2(0,0);
         addListeners();
@@ -60,7 +63,6 @@ public class PlayAgainController implements IScript, Telegraph {
     private boolean isTouched(Entity entity) {
 
         if(Gdx.input.justTouched()) {
-            DimensionsComponent dimensionsComponent = ComponentRetriever.get(entity, DimensionsComponent.class);
             localCoordinates.set(Gdx.input.getX(), Gdx.input.getY());
             TransformMathUtils.globalToLocalCoordinates(entity, localCoordinates);
             if(dimensionsComponent.hit(localCoordinates.x, localCoordinates.y) &&
@@ -82,7 +84,6 @@ public class PlayAgainController implements IScript, Telegraph {
             case MessageType.startingPositions:
                 mainItemComponent.visible = false;
                break;
-
 
         }
         return true;

@@ -14,5 +14,8 @@ public class MessageType {
     public static final int moreSpeed = 8;
     public static final int gameOver = 9;
     public static final int restart = 10;
-    public static final int playGame = 11;
+    public static final int goToGame = 11;
+    public static final int goToAbout = 12;
+    public static final int goToIntroduction = 13;
+    public static final int goToMenu = 14;
 }

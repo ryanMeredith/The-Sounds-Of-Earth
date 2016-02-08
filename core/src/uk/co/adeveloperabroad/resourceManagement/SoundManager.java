@@ -25,13 +25,7 @@ public class SoundManager implements Disposable {
     }
 
     public Sound getSound(String soundName) {
-        Sound sound = sounds.get(soundName);
-
-        if (sound != null) {
-            return sound;
-        }
-
-        return null;
+        return sounds.get(soundName);
     }
 
     public HashMap<String, String> getSoundsInFile() {
@@ -72,6 +66,7 @@ public class SoundManager implements Disposable {
     }
 
     public void removeSound(String soundName) {
+        sounds.get(soundName).dispose();
         sounds.remove(soundName);
     }
 

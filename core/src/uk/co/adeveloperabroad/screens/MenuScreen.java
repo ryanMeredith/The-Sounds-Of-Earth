@@ -1,7 +1,9 @@
 package uk.co.adeveloperabroad.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
@@ -16,35 +18,52 @@ import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
  */
 public class MenuScreen implements Screen {
 
-    SceneLoader sceneLoader;
-    Viewport viewport;
+    private SceneLoader sceneLoader;
+    private Viewport viewport;
+    private Music bach;
+    private Float volume = 0f;
 
 
-    public MenuScreen(Viewport viewport, SceneLoader sceneLoader){
-        this.sceneLoader = sceneLoader;
+    public MenuScreen (Viewport viewport, GameResourceManager rm){
+        sceneLoader = new SceneLoader(rm);
         this.viewport = viewport;
-    }
 
-    @Override
-    public void show() {
         sceneLoader.loadScene("menu", viewport);
-        GameResourceManager rm = (GameResourceManager) sceneLoader.getRm();
+
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
         root.getChild("voyager").addScript(new VoyagerController());
         root.getChild("intro").addScript(new MenuButtonController());
         root.getChild("play").addScript(new MenuButtonController());
         root.getChild("about").addScript(new MenuButtonController());
+        bach = rm.assetManager.get("music/bachFree.ogg", Music.class);
+        bach.setLooping(true);
+    }
+
+    @Override
+    public void show() {
+        volume = 0f;
+        bach.setVolume(volume);
+        bach.play();
     }
 
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT
-                | GL20.GL_DEPTH_BUFFER_BIT
-                | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV
-                : 0));
+        Gdx.gl.glClearColor( 0, 0, 0, 1 );
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
-        sceneLoader.getEngine().update(Gdx.graphics.getDeltaTime());
+        sceneLoader.getEngine().update(delta);
+
+
+        if (volume < 0.8) {
+            volume += delta * 0.05f;
+            bach.setVolume(volume);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
+
     }
 
     @Override
@@ -64,11 +83,11 @@ public class MenuScreen implements Screen {
 
     @Override
     public void hide() {
-
+        bach.pause();
     }
 
     @Override
     public void dispose() {
-
+        bach.dispose();
     }
 }

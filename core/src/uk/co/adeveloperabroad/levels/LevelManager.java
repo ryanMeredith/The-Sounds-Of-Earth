@@ -1,11 +1,13 @@
 package uk.co.adeveloperabroad.levels;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.async.ThreadUtils;
 import com.uwsoft.editor.renderer.components.NodeComponent;
 import com.uwsoft.editor.renderer.components.TextureRegionComponent;
 import com.uwsoft.editor.renderer.utils.ComponentRetriever;
@@ -21,8 +23,8 @@ public class LevelManager implements Disposable{
 
     private GameResourceManager rm;
 
-    private int previousLevelNumber;
-    private int currentLevelNumber;
+    private int previousLevelNumber = 1;
+    private int currentLevelNumber = 1;
 
     public Level currentLevel;
     public Sound mysterySound;
@@ -56,16 +58,16 @@ public class LevelManager implements Disposable{
         }
     }
 
-    public void loadLevel(int levelNumber) {
+    public void loadLevel() {
 
-        previousLevelNumber = currentLevelNumber;
-        currentLevelNumber = levelNumber;
+        if (previousLevelNumber != currentLevelNumber) {
+            unLoadSound(previousLevelNumber);
+        }
 
         preLoadSound(getNextLevelNumber());
-        unLoadOldSound();
 
         for (Level level : levels) {
-            if (level.levelNumber == levelNumber) {
+            if (level.levelNumber == currentLevelNumber) {
                 currentLevel = level;
             }
         }
@@ -73,22 +75,35 @@ public class LevelManager implements Disposable{
         loadPictures();
     }
 
-    private void unLoadOldSound() {
+    public void unLoadSound(Integer levelNumber) {
 
-        if (mysterySound != null) {
-            mysterySound.stop();
-            mysterySound.dispose();
-            mysterySound = null;
-            rm.removeSound(getSoundNameForLevel(previousLevelNumber));
+        if (rm.assetManager.isLoaded(rm.soundManager.getSoundLocation(getSoundNameForLevel(levelNumber)))) {
+            Gdx.app.log("levelManager: unload", getSoundNameForLevel(levelNumber));
+            rm.removeSound(getSoundNameForLevel(levelNumber));
         }
-
     }
 
     public void setSound() {
 
+        if (mysterySound != null) {
+            mysterySound.stop();
+            mysterySound = null;
+        }
+
+        loadLevelSound(); // if has not been done already // too late for android
         mysterySound = rm.soundManager.getSound(currentLevel.sound);
 
     }
+
+    public void loadLevelSound() {
+        // if the sound has not been loaded do an emergency load blocking thread until loaded.
+        if (rm.soundManager.getSound(currentLevel.sound) == null) {
+            rm.assetManager.load(rm.soundManager.getSoundsInFile().get(currentLevel.sound), Sound.class);
+            rm.assetManager.finishLoadingAsset(rm.soundManager.getSoundsInFile().get(currentLevel.sound));
+            rm.soundManager.asyncLoadSoundData(currentLevel.sound, rm.assetManager.get(rm.soundManager.getSoundsInFile().get(currentLevel.sound), Sound.class));
+        }
+    }
+
 
     public void loadPictures() {
 
@@ -116,7 +131,7 @@ public class LevelManager implements Disposable{
 
     public Integer getNextLevelNumber() {
 
-        int nextLevelNumber = 0;
+        int nextLevelNumber;
         if (currentLevelNumber == finalLevelNumber) {
             nextLevelNumber = 1;
         } else {
@@ -127,11 +142,24 @@ public class LevelManager implements Disposable{
 
     @Override
     public void dispose() {
-
+        mysterySound.dispose();
     }
 
     public void setRoot(ItemWrapper root) {
         this.root = root;
+    }
+
+    public void setCurrentLevelNumber(Integer levelNumber) {
+        previousLevelNumber = currentLevelNumber;
+        currentLevelNumber = levelNumber;
+    }
+
+    public Integer getCurrentLevelNumber() {
+        return currentLevelNumber;
+    }
+
+    public void loadNextLevel() {
+        setCurrentLevelNumber(getNextLevelNumber());
     }
 }
 
