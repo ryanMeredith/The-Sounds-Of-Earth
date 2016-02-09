@@ -6,10 +6,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.uwsoft.editor.renderer.SceneLoader;
 
 import uk.co.adeveloperabroad.adMob.AdvertDisplay;
+import uk.co.adeveloperabroad.levels.Level;
+import uk.co.adeveloperabroad.levels.LevelManager;
 import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
 import uk.co.adeveloperabroad.screens.AboutScreen;
 import uk.co.adeveloperabroad.screens.GameScreen;
@@ -38,28 +43,26 @@ public class SoundsOfEarth extends Game implements Telegraph{
 
     private AdvertDisplay advertDisplay;
 
-    public SoundsOfEarth(AdvertDisplay advertDisplay){
+    public SoundsOfEarth(AdvertDisplay advertDisplay) {
         this.advertDisplay = advertDisplay;
     }
 
     @Override
     public void create() {
-
-        if (advertDisplay != null) {
-            advertDisplay.showAdvert();
-        }
-
         viewport = new FitViewport(160, 96);
         rm = new GameResourceManager();
 
         currentScreen = new SplashScreen(rm);
         setScreen(currentScreen);
         addMessageListeners();
+
     }
 
     @Override
     public void render() {
         super.render();
+
+
 
         rm.update();
 
@@ -67,7 +70,6 @@ public class SoundsOfEarth extends Game implements Telegraph{
             isLoaded = true;
             createScreens();
         }
-
 
 
         if (changeScreen && screenNumber != 0) {
@@ -142,7 +144,7 @@ public class SoundsOfEarth extends Game implements Telegraph{
     }
 
     private void createScreens() {
-        aboutScreen = new AboutScreen(viewport, rm);
+        aboutScreen = new AboutScreen(viewport, rm, advertDisplay);
         gameScreen = new GameScreen(viewport, rm);
         introductionScreen = new IntroductionScreen(viewport, rm);
         menuScreen = new MenuScreen(viewport, rm);

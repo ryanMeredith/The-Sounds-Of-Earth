@@ -151,7 +151,6 @@ public class GameScreen implements Screen, Telegraph {
             playSound(recordSpeed);
         }
 
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             MessageManager.getInstance().dispatchMessage(0, null, MessageType.goToMenu);
         }

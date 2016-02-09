@@ -5,6 +5,7 @@ package uk.co.adeveloperabroad.adMob;
  */
 public interface AdvertDisplay {
 
+    public void loadAdvert();
     public void showAdvert();
     public void hideAdvert();
 }

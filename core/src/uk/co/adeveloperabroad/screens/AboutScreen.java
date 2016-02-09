@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
+import uk.co.adeveloperabroad.adMob.AdvertDisplay;
+import uk.co.adeveloperabroad.controllers.AdvertController;
 import uk.co.adeveloperabroad.controllers.HomeButtonController;
 import uk.co.adeveloperabroad.controllers.LinkController;
 import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
@@ -22,7 +24,8 @@ public class AboutScreen implements Screen {
     private Viewport viewport;
     private SceneLoader sceneLoader;
 
-    public AboutScreen(Viewport viewport, GameResourceManager rm) {
+    public AboutScreen(Viewport viewport, GameResourceManager rm, AdvertDisplay advertDisplay) {
+        advertDisplay.loadAdvert();
         sceneLoader = new SceneLoader(rm);
         this.viewport = viewport;
         sceneLoader.loadScene("about", viewport);
@@ -30,6 +33,7 @@ public class AboutScreen implements Screen {
         root.getChild("homeButton").addScript(new HomeButtonController());
         root.getChild("wikiLink").addScript(new LinkController());
         root.getChild("recordLink").addScript(new LinkController());
+        root.getChild("advertLink").addScript(new AdvertController(advertDisplay));
 
     }
 

@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        minSdkVersion '9'
+        minSdkVersion 9
     }
     productFlavors {
     }
@@ -116,4 +116,5 @@ idea {
     }
 }
 dependencies {
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }
