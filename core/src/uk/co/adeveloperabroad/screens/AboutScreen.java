@@ -10,6 +10,7 @@ import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.utils.ItemWrapper;
 
 import uk.co.adeveloperabroad.controllers.HomeButtonController;
+import uk.co.adeveloperabroad.controllers.LinkController;
 import uk.co.adeveloperabroad.resourceManagement.GameResourceManager;
 import uk.co.adeveloperabroad.utility.MessageType;
 
@@ -27,6 +28,9 @@ public class AboutScreen implements Screen {
         sceneLoader.loadScene("about", viewport);
         ItemWrapper root = new ItemWrapper(sceneLoader.getRoot());
         root.getChild("homeButton").addScript(new HomeButtonController());
+        root.getChild("wikiLink").addScript(new LinkController());
+        root.getChild("recordLink").addScript(new LinkController());
+
     }
 
     @Override
@@ -73,4 +77,6 @@ public class AboutScreen implements Screen {
     public void dispose() {
 
     }
+
+
 }

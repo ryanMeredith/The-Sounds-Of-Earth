@@ -9,6 +9,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height=480;
 		config.width=800;
-		new LwjglApplication(new SoundsOfEarth(), config);
+		new LwjglApplication(new SoundsOfEarth(null), config);
 	}
 }

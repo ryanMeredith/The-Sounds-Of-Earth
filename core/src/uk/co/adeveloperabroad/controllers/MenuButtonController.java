@@ -90,6 +90,8 @@ public class MenuButtonController implements IScript {
         if (buttonName.equals("exit")) {
             Gdx.app.exit();
         }
+
+
     }
 
     private boolean isTouched(Entity entity) {
